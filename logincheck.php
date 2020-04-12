@@ -16,19 +16,19 @@
            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
                 <tbody>
                     <tr>
-                        <td width="50%">
-                             <font size="2"> Username : </font>   
+                        <td width="30%">
+                             <font size="3"> Username : </font>   
                         </td>
-                        <td width="50%">
+                        <td width="70%">
                             <input size="20" type="text" name="username" value="">
                         </td>
                     </tr>
 
                     <tr>
-                        <td width="50%">
-                            <font size="2"> Password :</font>
+                        <td width="30%">
+                            <font size="3"> Password :</font>
                         </td>
-                        <td width="50%">
+                        <td width="70%">
                             <input type="password" name="yourpass" value="">
                         </td>
                     </tr>
@@ -36,32 +36,33 @@
                     <tr>
                         <td width="50%"></td>
                         <td width="50%">
+                           <font size="1">
                              <?php
 
-                              if(isset($_POST['LOGIN']))
-                                {   
-                                    $name = $_POST['username'];
-                                    $pass = $_POST['yourpass'];
+                                if(isset($_POST['LOGIN']))
+                                    {   
+                                        $name = $_POST['username'];
+                                        $pass = $_POST['yourpass'];
 
-                                    if($name == "" && $pass == ""){
-                                        echo "Please enter name and password";
-                                    }else{
-                                        $query = "SELECT * FROM `info` where user='$name' && pass='$pass' ";
+                                        if($name == "" && $pass == ""){
+                                            echo "Please enter name and pass";
+                                        }else{
+                                            $query = "SELECT * FROM `info` where user='$name' && pass='$pass' ";
             
-                                        $result = mysqli_query($connect,$query);
+                                           $result = mysqli_query($connect,$query);
 
-                                        $total = mysqli_num_rows($result); 
+                                            $total = mysqli_num_rows($result); 
             
-                                        if($total == 1){
-                                             header('location:default2.php');
-                                        }else {
-                                            echo "login failed";
+                                            if($total == 1){
+                                                 header('location:default2.php');
+                                            }else {
+                                                echo "login failed";
+                                            }
+                                            
                                         }
-        
                                     }
-                                }
-    
-                            ?>
+                              ?>
+                            </font>
                         </td>
                     </tr>
                 </tbody>
