@@ -32,7 +32,7 @@
       <tr>
         <td width="23%"><font size="2">Date :-</font></td>
         <td width="43%">
-        <input type="text" name="date" size="14" style="font-family: Verdana; font-size: 10pt" value=""></td>
+        <input type="text" name="date" size="14" style="font-family: Verdana; font-size: 10pt" value="<?php  echo date('d/m/Y'); ?>"></td>
       </tr>
       <tr>
         <td width="23%"><font face="Verdana" size="2">Type :-</font></td>
