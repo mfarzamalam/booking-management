@@ -56,7 +56,7 @@ $query="INSERT INTO mutation (`type`,`date`,`name`,`cnic`,`contactno`,`secondcon
          VALUES ('$typed','$dated','$name','$cnic','$contactno','$secondcontactno','$status','$FlatNo','$buyeragentname','$buyeragentnumber','$secondbuyeragentnumber','$price','$sellername','$sellernumber','$selleragentname','$selleragentnumber','$nominee','$nomineecnic','$balance','$note','$first','$firstdetail','$secondd','$seconddetail','$installment','$installmentdetail','$yearlyone','$yearlyonedetail','$yearlytwo','$yearlytwodetail','$yearlythree','$yearlythreedetail','$completion','$completiondetail','$what')";
  
 $result = mysqli_query($connect,$query);
- 
+
 }
 ?>
 

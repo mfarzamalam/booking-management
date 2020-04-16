@@ -88,7 +88,7 @@ body   { font-family: Arial; font-size: 12pt }
 
 ?>
   
-  <form method="POST" action="update_unitmanager.php" target="_blank">
+  <form method="POST" action="update_unitmanager.php" >
 <tr>
 <td width="10%"><input type="text" name="name1" size="50" value="<?php echo "$row[name]"; ?>">
 </td>

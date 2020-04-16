@@ -14,9 +14,11 @@
     
     // echo $UNAME.$USOLD.$UFLATS.$UMAINTAIN.$UID;
 
-    $query1 = "UPDATE `flats` SET `name`=$UNAME, `sold`=$USOLD, `flats`=$UFLATS, `Broker`=$UCOMMENT, `monthlym`=$UMAINTAIN, WHERE `id`='$UID' ";
+    $query1 = "UPDATE `flats` SET `name`='$UNAME', `sold`='$USOLD', `flats`='$UFLATS', `Broker`='$UCOMMENT', `monthlym`='$UMAINTAIN' WHERE `id`='$UID' ";
 
     $update_data = mysqli_query($connect,$query1);
-    header('location:unitmanager.php');
+   // echo mysqli_error($connect);
+
+   header('location:unitmanager.php');
   
 ?>
