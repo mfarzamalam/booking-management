@@ -17,15 +17,6 @@
     $query1 = "UPDATE `flats` SET `name`=$UNAME, `sold`=$USOLD, `flats`=$UFLATS, `Broker`=$UCOMMENT, `monthlym`=$UMAINTAIN, WHERE `id`='$UID' ";
 
     $update_data = mysqli_query($connect,$query1);
-    
+    header('location:unitmanager.php');
   
 ?>
-
-  <head>
-
-<script language="javascript">
-
-setTimeout("self.close();",500)
-
-</script> 
-</head>

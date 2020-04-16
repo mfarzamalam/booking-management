@@ -11,7 +11,7 @@
 <body>
 
     <font size="3" color="#800000">
-        <center>luckyonetower</center>
+        <center><?php echo $_SESSION['project'];  ?></center>
     </font>
     <br>
     <div align="center">

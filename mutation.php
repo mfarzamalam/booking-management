@@ -74,7 +74,8 @@
         <td width="23%"><font face="Verdana" size="2">Unit No :-</font></td>
         <td width="43%"><select size="1" name="FlatNo" style="font-family: Verdana; font-size: 10pt">
         <?php 
-          $query = "SELECT * FROM flats";
+          $what = $_SESSION["user"];
+          $query = "SELECT * FROM flats where What = '$what'";
           $result = mysqli_query($connect,$query);
 
         ?>

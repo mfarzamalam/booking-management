@@ -13,19 +13,15 @@
         $FLATS = $_POST['flats'];
         $MAINTAIN = $_POST['monthlym'];
         $COMMENT = $_POST['comment'];
+        $WHAT = $_SESSION['user'];
 
-        $query = "INSERT INTO flats (name,sold,monthlym,flats,broker,what) values ('$NAME','$SOLD','$MAINTAIN','$FLATS','$COMMENT','')";
+        $query = "INSERT INTO flats (name,sold,monthlym,flats,broker,What) values ('$NAME','$SOLD','$MAINTAIN','$FLATS','$COMMENT','$WHAT')";
         $insert_data = mysqli_query($connect,$query);  
+        header('location:unitmanager.php');
+  
     }
 
   ?>
 
 
-<head>
-
-<script language="javascript">
-
-setTimeout("self.close();",500)
-
-</script> 
-</head>
+ 

@@ -50,12 +50,13 @@ $yearlythree = $_POST['yearlythree'];
 $yearlythreedetail = $_POST['yearlythreedetail'];
 $completion = $_POST['completion'];
 $completiondetail = $_POST['completiondetail'];
+$what = $_SESSION["user"];
 
-$query="INSERT INTO mutation (type,date,name,cnic,contactno,secondcontactno,status,flatno,buyeragentname,buyeragentnumber,secondbuyeragentnumber,price,sellername,sellernumber,selleragentname,selleragentnumber,nominee,nomineecnic,balance,note,first,firstdetail,second,seconddetail,installment,installmentdetail,yearlyone,yearlyonedetail,yearlytwo,yearlytwodetail,yearlythree,yearlythreedetail,completion,completiondetail,what) 
-         VALUES ($typed,$dated,$name,$cnic,$contactno,$secondcontactno,$status,$FlatNo,$buyeragentname,$buyeragentnumber,$secondbuyeragentnumber,$price,$sellername,$sellernumber,$selleragentname,$selleragentnumber,$nominee,$nomineecnic,$balance,$note,$first,$firstdetail,$secondd,$seconddetail,$installment,$installmentdetail,$yearlyone,$yearlyonedetail,$yearlytwo,$yearlytwodetail,$yearlythree,$yearlythreedetail,$completion,$completiondetail,'')";
-
+$query="INSERT INTO mutation (`type`,`date`,`name`,`cnic`,`contactno`,`secondcontactno`,`status`,`flatno`,buyeragentname,buyeragentnumber,secondbuyeragentnumber,price,sellername,sellernumber,selleragentname,selleragentnumber,nominee,nomineecnic,balance,note,`first`,firstdetail,second,seconddetail,installment,installmentdetail,yearlyone,yearlyonedetail,yearlytwo,yearlytwodetail,yearlythree,yearlythreedetail,completion,completiondetail,what) 
+         VALUES ('$typed','$dated','$name','$cnic','$contactno','$secondcontactno','$status','$FlatNo','$buyeragentname','$buyeragentnumber','$secondbuyeragentnumber','$price','$sellername','$sellernumber','$selleragentname','$selleragentnumber','$nominee','$nomineecnic','$balance','$note','$first','$firstdetail','$secondd','$seconddetail','$installment','$installmentdetail','$yearlyone','$yearlyonedetail','$yearlytwo','$yearlytwodetail','$yearlythree','$yearlythreedetail','$completion','$completiondetail','$what')";
+ 
 $result = mysqli_query($connect,$query);
-
+ 
 }
 ?>
 

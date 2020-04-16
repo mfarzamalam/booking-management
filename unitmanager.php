@@ -39,7 +39,8 @@ body   { font-family: Arial; font-size: 12pt }
 
   <?php
   
-    $search = $_GET['q'];
+  
+  //  $search = $_GET['q'];
     $squery = "SELECT * from flats where name like  ";
   ?>
   </div>
@@ -63,7 +64,7 @@ body   { font-family: Arial; font-size: 12pt }
 
 
 
-    <form method="POST" action="add_unitmanager.php" target="_blank">
+    <form method="POST" action="add_unitmanager.php"  >
 <tr>
 <td width="20%"><input type="text" name="name" size="50" value=""></td>
 <td width="20%"><input type="text" name="sold" size="15" value=""></td>
@@ -77,7 +78,8 @@ body   { font-family: Arial; font-size: 12pt }
 </form>
 
 <?php
-    $query = "SELECT * FROM `flats`";
+    $what =  $_SESSION['user'];
+    $query = "SELECT * FROM `flats` where What = '$what'"  ;
     $result = mysqli_query($connect,$query);
 ?>
 
