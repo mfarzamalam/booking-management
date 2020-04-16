@@ -81,7 +81,7 @@ do hereby undertake and confirm as under:-</font></td>
 </tr>
 <?php } else{ ?>
 <tr>
-<td><font face="Verdana" size="2">I agreed to sale the &ldquo;Said Property&rdquo; at the agreed sale consideration of <b>Rs.<?php echo $AMOUNT ?>/=</b> (Rupees <b><?php $AMOUNTINWORDS ?></b> only).</font></td>
+<td><font face="Verdana" size="2">I agreed to sale the &ldquo;Said Property&rdquo; at the agreed sale consideration of <b>Rs.<?php echo $AMOUNT ?>/=</b> (Rupees <b><?php echo $AMOUNTINWORDS ?></b> only).</font></td>
 </tr>
 <?php }?>
 
