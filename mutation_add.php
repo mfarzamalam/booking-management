@@ -14,7 +14,7 @@ small {
 
 <?php 
 
- if($_POST['mode'] == "new"){
+if($_POST['mode'] == "new"){
 
 $typed = $_POST['type'];
 $dated = $_POST['date'];
@@ -52,12 +52,78 @@ $completion = $_POST['completion'];
 $completiondetail = $_POST['completiondetail'];
 $what = $_SESSION["user"];
 
-$query="INSERT INTO mutation (`type`,`date`,`name`,`cnic`,`contactno`,`secondcontactno`,`status`,`flatno`,buyeragentname,buyeragentnumber,secondbuyeragentnumber,price,sellername,sellernumber,selleragentname,selleragentnumber,nominee,nomineecnic,balance,note,`first`,firstdetail,second,seconddetail,installment,installmentdetail,yearlyone,yearlyonedetail,yearlytwo,yearlytwodetail,yearlythree,yearlythreedetail,completion,completiondetail,what) 
-         VALUES ('$typed','$dated','$name','$cnic','$contactno','$secondcontactno','$status','$FlatNo','$buyeragentname','$buyeragentnumber','$secondbuyeragentnumber','$price','$sellername','$sellernumber','$selleragentname','$selleragentnumber','$nominee','$nomineecnic','$balance','$note','$first','$firstdetail','$secondd','$seconddetail','$installment','$installmentdetail','$yearlyone','$yearlyonedetail','$yearlytwo','$yearlytwodetail','$yearlythree','$yearlythreedetail','$completion','$completiondetail','$what')";
+$query="INSERT INTO mutation (`type`,`date`,`name`,`cnic`,`contactno`,`secondcontactno`,`status`,`flatno`,
+                              buyeragentname,buyeragentnumber,secondbuyeragentnumber,price,sellername,
+                              sellernumber,selleragentname,selleragentnumber,nominee,nomineecnic,balance,
+                              note,`first`,firstdetail,second,seconddetail,installment,installmentdetail,
+                              yearlyone,yearlyonedetail,yearlytwo,yearlytwodetail,yearlythree,yearlythreedetail,
+                              completion,completiondetail,what) 
+                       VALUES ('$typed','$dated','$name','$cnic','$contactno','$secondcontactno','$status',
+                              '$FlatNo','$buyeragentname','$buyeragentnumber','$secondbuyeragentnumber',
+                              '$price','$sellername','$sellernumber','$selleragentname','$selleragentnumber',
+                              '$nominee','$nomineecnic','$balance','$note','$first','$firstdetail','$secondd',
+                              '$seconddetail','$installment','$installmentdetail','$yearlyone','$yearlyonedetail',
+                              '$yearlytwo','$yearlytwodetail','$yearlythree','$yearlythreedetail','$completion',
+                              '$completiondetail','$what')";
  
 $result = mysqli_query($connect,$query);
 
 }
+
+if($_POST['mode'] == "edit"){
+
+$id = $_POST['id'];
+$typed = $_POST['type'];
+$dated = $_POST['date'];
+$name = $_POST['name'];
+$cnic = $_POST['cnic'];
+$contactno = $_POST['contactno'];
+$secondcontactno = $_POST['secondcontactno'];
+$status = $_POST['status'];
+$FlatNo = $_POST['FlatNo'];
+$buyeragentname = $_POST['buyeragentname'];
+$buyeragentnumber = $_POST['buyeragentnumber'];
+$secondbuyeragentnumber = $_POST['secondbuyeragentnumber'];
+$price = $_POST['price'];
+$sellername = $_POST['sellername'];
+$sellernumber = $_POST['sellernumber'];
+$selleragentname = $_POST['selleragentname'];
+$selleragentnumber = $_POST['selleragentnumber'];
+$nominee = $_POST['nominee'];
+$nomineecnic = $_POST['nomineecnic'];
+$balance = $_POST['balance'];
+$note = $_POST['note'];
+$first = $_POST['first'];
+$firstdetail = $_POST['firstdetail'];
+$secondd = $_POST['second'];
+$seconddetail = $_POST['seconddetail'];
+$installment = $_POST['installment'];
+$installmentdetail = $_POST['installmentdetail'];
+$yearlyone = $_POST['yearlyone'];
+$yearlyonedetail = $_POST['yearlyonedetail'];
+$yearlytwo = $_POST['yearlytwo'];
+$yearlytwodetail = $_POST['yearlytwodetail'];
+$yearlythree = $_POST['yearlythree'];
+$yearlythreedetail = $_POST['yearlythreedetail'];
+$completion = $_POST['completion'];
+$completiondetail = $_POST['completiondetail'];
+$what = $_SESSION["user"];
+
+$update_query="INSERT mutation Set `type`='$typed' ,`date`='$dated' ,`name`='$name' ,`cnic`='$cnic' ,
+                            `contactno`='$contactno' ,`secondcontactno`='$secondcontactno' ,`status`='$status' ,
+                            `flatno`='$FlatNo' ,buyeragentname='$buyeragentname' ,buyeragentnumber='$buyeragentnumber' ,
+                            secondbuyeragentnumber='$selleragentnumber' ,price='$price' ,sellername='$sellername' ,
+                            sellernumber='$sellernumber' ,selleragentname='$selleragentname' ,selleragentnumber='$selleragentnumber' ,
+                            nominee='$nominee' ,nomineecnic='$nomineecnic' ,balance='$balance' ,note='$note' ,`first`='$first' ,
+                            firstdetail='$firstdetail' ,second='$secondd' ,seconddetail='$seconddetail' ,installment='$installment' ,
+                            installmentdetail='$installmentdetail' ,yearlyone='$yearlyone' ,yearlyonedetail='$yearlyonedetail' ,
+                            yearlytwo='$yearlytwo' ,yearlytwodetail='$yearlytwodetail' ,yearlythree='$yearlythree' ,yearlythreedetail='$yearlythreedetail' ,
+                            completion='$completion' ,completiondetail='$completiondetail' WHERE  `mutation`.`id` ='$id' and `mutation`.`what` ='$what' ";
+ 
+$result = mysqli_query($connect,$update_query);
+
+}
+
 ?>
 
 
@@ -65,7 +131,7 @@ $result = mysqli_query($connect,$query);
 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber3" width="100%">
   <tr>
     <td width="100%">
-    <p align="center"><img border="0" src=""></td>
+    <p align="center"><img border="0" src="<?php echo $_SESSION['logo'];?>"></td>
   </tr>
 </table>
 <br>
@@ -76,13 +142,16 @@ $result = mysqli_query($connect,$query);
   <table  style="border:1px dashed black;" border="0" cellpadding="0" style="border-collapse: collapse" width="100%" cellspacing="3">
   -->
   
-	<!-- <table background="https://chart.googleapis.com/chart?chl=<%=session("project")%>%0A<%=dated%>%0A<%=name%>%0A<%=status%>%0A<%=flatno%><% if price <> "" then%>%0APrice: <%=price%><% end if %><% if balance <> "" then %>%0ABuilder Balance:<%=balance%><% end if %>&chs=125x125&cht=qr&chld=H%7C0" border="0" cellpadding="0" cellspacing="3" style="border:1px dashed black; background-repeat:no-repeat; background-position:top right; background-size: 125px 125px;" width="100%"> -->
-	  
-	 
+<table background="https://chart.googleapis.com/chart?chl=<?php $_SESSION['logo']?>>%0A<?php echo date("d/m/Y");?>%0A<?php echo $name;?>%0A<?php echo $status ;?>%0A<?php echo $FlatNo ;?><?php if(!$price == "") { ;?>%0APrice: <?php $price?><?php } ?><?php if(!$balance == "") { ;?>%0ABuilder Balance:<?php echo $balance?> <?php } ?>&chs=125x125&cht=qr&chld=H%7C0" border="0" cellpadding="0" cellspacing="3" style="border:1px dashed black; background-repeat:no-repeat; background-position:top right; background-size: 125px 125px;" width="100%">
+    <?php 
+      if (!$dated == "" ) {
+    ?>
 	   <tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Date :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font> <b><font face="Verdana" size="1.5">Type :</font></b><font size="2" face="Verdana"><b> </b></font></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php  echo date("d/m/Y"); ?></font> <b><font face="Verdana" size="1.5">Type :</font></b><font size="2" face="Verdana"><b><?php echo $typed;?></b></font></td>
     </tr>
+
+    <?php } ?>
 <!--
 	 <% if typed <> "" then %>
 	  <tr>
@@ -92,10 +161,12 @@ $result = mysqli_query($connect,$query);
 	<% end if %>
 	-->
 	  
-		   <tr>
+  <?php if (!$name == "" ) { ?>		   
+    <tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Name :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"></font>  <b><font face="Verdana" size="1.5">CNIC :</font></b><font face="Verdana" size="1.5"> </font> <b><font face="Verdana" size="1.5"> Contact # :</font></b><font face="Verdana" size="1.5"> </font> </td>
+  <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $name;?></font> <?php if (!$cnic == "" ) { ?><b><font face="Verdana" size="1.5">CNIC :</font></b><font face="Verdana" size="1.5"><?php echo $cnic;?></font><?php } ?> <?php if (!$contactno == "" ) { ?><b><font face="Verdana" size="1.5"> Contact # :</font></b><font face="Verdana" size="1.5"><?php echo $contactno;?></font><?php } ?></td>
     </tr>	
+  <?php }?>
 	<!--
 	  <% if cnic <> "" then %>
 		   <tr>
@@ -111,15 +182,16 @@ $result = mysqli_query($connect,$query);
     </tr>	<% end if %>
 	-->
 	
+  <?php if (!$status == "" ) { ?>
 		   <tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Status :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><b> </b></font>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><b><?php echo $status;?></b></font>
 	  
-        <font face="Verdana" size="1.5"> Unit # :</font><font face="Verdana" size="1.5"><b> </b></font> 
-	    <font face="Verdana" size="1.5"> Agreed Price :</font><font face="Verdana" size="1.5"><b> </b></font> 
+    <?php if (!$FlatNo == "" ) { ?><font face="Verdana" size="1.5"> Unit # :</font><font face="Verdana" size="1.5"><b><?php echo $FlatNo;?></b></font><?php } ?>
+      <?php if (!$price == "" ) { ?><font face="Verdana" size="1.5"> Agreed Price :</font><font face="Verdana" size="1.5"><b><?php echo $price;?></b></font><?php } ?>
 	  
 	  </td>
-    </tr>	
+  </tr>	<?php } ?>
 	<!--
 	
 	  <% if flatno <> "" then %>
@@ -132,10 +204,12 @@ $result = mysqli_query($connect,$query);
 		<% end if %>
 		-->
 		
+    <?php if (!$buyeragentname == "" ) { ?>
 			  <tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Buyer's Agent Name :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5">  </font>  <b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"> </font> </td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $buyeragentname;?></font> <?php if (!$buyeragentnumber == "" ) { ?><b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"><?php echo $buyeragentnumber;?></font><?php } ?></td>
     </tr>
+      <?php } ?>
 				
 			
 	<!--			
@@ -148,83 +222,113 @@ $result = mysqli_query($connect,$query);
 		<% end if %>
 		-->
 		
+	  <?php if (!$selleragentname == "" ) { ?>
 	  
 	 			<tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Seller Agent Name :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font> <b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"> </font> </td>
+    <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $selleragentname;?></font> <?php if (!$selleragentnumber == "" ) { ?><b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"><?php echo $selleragentnumber;?></font><?php } ?></td>
     </tr>
+    <?php } ?>
 				
 				
+	  <?php if (!$sellername == "" ) { ?>
 	  
 	
 	 	 			<tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Seller Name :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font>  <b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"> </font> </td>
+    <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $sellername;?></font> <?php if (!$sellernumber == "" ) { ?><b><font face="Verdana" size="1.5">Contact # :</font></b><font face="Verdana" size="1.5"><?php echo $sellernumber;?></font><?php } ?></td>
     </tr>
+    <?php } ?>
 				
 				
 				
 				
-	  
+    <?php if (!$nominee == "" ) { ?>	  
 	  
 	 
 	 	 	 			<tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Nominee Name :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font>  <b><font face="Verdana" size="1.5">CNIC/Contact #:</font></b><font face="Verdana" size="1.5"> </font> </td>
+    <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $nominee;?></font> <?php if (!$nomineecnic == "" ) { ?><b><font face="Verdana" size="1.5">CNIC/Contact #:</font></b><font face="Verdana" size="1.5"><?php echo $nomineecnic;?></font><?php } ?></td>
     </tr>
-					  
+    <?php } ?>
+				
+				
+		
+				
+	  <?php if (!$balance == "" ) { ?>
+	  
 	 
 	 	 	 	 			<tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Builder Balance :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
-    </tr>	 
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $balance;?></font></td>
+    </tr>	<?php } ?>
 				
+    <?php if (!$note == "" ) { ?>
 	  
 	 	 	 	 	 			<tr>
       <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5">Note :</font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><small> </small></font></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><small><?php echo $note;?></small></font></td>
     </tr>
+      <?php } ?>
 	
 	  	 	 	 	 	 			<tr>
       <td width="185" style="border:1px dashed black;" ></td>
       <td width="625" style="border:1px dashed black;" ><b><font face="Verdana" size="2"><b>** PAYMENT SCHEDULE **</b></font></b></td>
     </tr>
+	  <?php if (!$first == "" ) { ?>
+		 	 	 	 	 			<tr>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $first;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $firstdetail;?></font></td>
+    </tr>
+	
+    <?php } ?>
+	
+      <?php if (!$secondd == "" ) { ?>
+	<tr>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $secondd;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $seconddetail;?></font></td>
+    </tr>
 
-    <tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
-    </tr>
-	
-	
-	<tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"></font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
-    </tr>
+    <?php } ?>
+
 		
+    <?php if (!$installment == "" ) { ?>
 	<tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $installment;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $installmentdetail;?></font></td>
     </tr>
+    <?php } ?>
+
 		
+    <?php if (!$yearlyone == "" ) { ?>
 	<tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $yearlyone;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $yearlyonedetail;?></font></td>
     </tr>
+    <?php } ?>
+
 		
+    <?php if (!$yearlytwo == "" ) { ?>
 	<tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $yearlytwo;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $yearlytwodetail;?></font></td>
     </tr>
+    <?php } ?>
 	 	
+    <?php if (!$yearlythree == "" ) { ?>
 	<tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $yearlythree;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $yearlythreedetail;?></font></td>
     </tr>
 
-    <tr>
-      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"> </font></b></td>
-      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"> </font></td>
+    <?php } ?>
+
+    <?php if (!$completion == "" ) { ?>
+	<tr>
+      <td width="185" style="border:1px dashed black;" ><b><font face="Verdana" size="1.5"><?php echo $completion;?></font></b></td>
+      <td width="625" style="border:1px dashed black;" ><font face="Verdana" size="1.5"><?php echo $completiondetail;?></font></td>
     </tr>
+    <?php } ?>
 	 
 	 
 	 
@@ -261,10 +365,6 @@ $result = mysqli_query($connect,$query);
 <li>Total Sale Price is excluded from Transfer fee, stamps duty, registration charges, K.E.S.C meter charges, PMT, HTc, LT, KE OWN, KE Material, SSGC, All GAS Work, KESC Work, and all other utility charges, CVT, transfer fees, electricity, Property Tax , KW&SB, EXCISE & Taxation, Water Connection, Registrar Office, Owns, Documentation, Lawyer charges are extra.</li>
 <li>That the Allottee/prospective Purchaser (s) / prospective Sub-Lessee hereby undertake not to object over the dimensions of room, plans, No. Of rooms/bathrooms, further accepts that the dimensions of the unit may differ or may contain services, ducts and it may differ from the plan been issued by the competent Authority, from the actual as built on site or shown in plan attached with the Sub-Lease.</li>
 
- 	
-<li> </li>
-	
-
 
 </small>
 </ul>
@@ -293,7 +393,7 @@ Total Sale Price is excluded from Transfer fee, stamps duty, registration charge
 
   <table border="0" cellpadding="0" style="border-collapse: collapse" width="100%" cellspacing="0">
 	 	 <tr>
-      <td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this letter, I/We <b> </b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this booking letter also I/We accept/undertake to abide by it in future.</center></font></td>
+      <td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this letter, I/We <b><?php echo $name;?></b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this booking letter also I/We accept/undertake to abide by it in future.</center></font></td>
     <!--  
 	  <td width="50%"><font size="0.5em" face="Verdana"><p style="text-align:center">This is a computerized generated document, does not require Signature</font><br><img src="http://qrfree.kaywa.com/?l=1&s=8&d=<%=session("project") %>%0A<%=name%>%0A<%=flatno%>%0A<%=status%>" height="50" width="50"></p></td>
     -->
