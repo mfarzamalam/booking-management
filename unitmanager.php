@@ -38,10 +38,17 @@ body   { font-family: Arial; font-size: 12pt }
   <input type="submit" value="Search"></p>
 
   <?php
-  
-  
-  //  $search = $_GET['q'];
-    $squery = "SELECT * from flats where name like  ";
+
+    $what =  $_SESSION['user'];
+    $query = "SELECT * FROM `flats` where What = '$what'"  ;
+    if(isset($_GET["q"])){
+    $search = $_GET['q'];
+    $query = "SELECT * from flats where  What = '$what' and ( `name` like '%$search%' or flats  like '%$search%' ) ORDER by id DESC limit 0,30;";
+  }
+    
+    
+    $result = mysqli_query($connect,$query);
+    echo mysqli_error($connect);
   ?>
   </div>
   </form>
@@ -77,11 +84,7 @@ body   { font-family: Arial; font-size: 12pt }
 </tr>
 </form>
 
-<?php
-    $what =  $_SESSION['user'];
-    $query = "SELECT * FROM `flats` where What = '$what'"  ;
-    $result = mysqli_query($connect,$query);
-?>
+ 
 
 <?php
     while($row = mysqli_fetch_array($result)){
