@@ -109,16 +109,16 @@ $completion = $_POST['completion'];
 $completiondetail = $_POST['completiondetail'];
 $what = $_SESSION["user"];
 
-$update_query="INSERT mutation Set `type`='$typed' ,`date`='$dated' ,`name`='$name' ,`cnic`='$cnic' ,
+$update_query="UPDATE `mutation` Set `type`='$typed' ,`date`='$dated' ,`name`='$name' ,`cnic`='$cnic' ,
                             `contactno`='$contactno' ,`secondcontactno`='$secondcontactno' ,`status`='$status' ,
-                            `flatno`='$FlatNo' ,buyeragentname='$buyeragentname' ,buyeragentnumber='$buyeragentnumber' ,
-                            secondbuyeragentnumber='$selleragentnumber' ,price='$price' ,sellername='$sellername' ,
-                            sellernumber='$sellernumber' ,selleragentname='$selleragentname' ,selleragentnumber='$selleragentnumber' ,
-                            nominee='$nominee' ,nomineecnic='$nomineecnic' ,balance='$balance' ,note='$note' ,`first`='$first' ,
-                            firstdetail='$firstdetail' ,second='$secondd' ,seconddetail='$seconddetail' ,installment='$installment' ,
-                            installmentdetail='$installmentdetail' ,yearlyone='$yearlyone' ,yearlyonedetail='$yearlyonedetail' ,
-                            yearlytwo='$yearlytwo' ,yearlytwodetail='$yearlytwodetail' ,yearlythree='$yearlythree' ,yearlythreedetail='$yearlythreedetail' ,
-                            completion='$completion' ,completiondetail='$completiondetail' WHERE  `mutation`.`id` ='$id' and `mutation`.`what` ='$what' ";
+                            `flatno`='$FlatNo' ,`buyeragentname`='$buyeragentname' ,`buyeragentnumber`='$buyeragentnumber' ,
+                            `secondbuyeragentnumber`='$selleragentnumber' ,`price`='$price' ,`sellername`='$sellername' ,
+                            `sellernumber`='$sellernumber' ,`selleragentname`='$selleragentname' ,`selleragentnumber`='$selleragentnumber' ,
+                            `nominee`='$nominee' ,`nomineecnic`='$nomineecnic' ,`balance`='$balance' ,`note`='$note' ,`first`='$first' ,
+                            `firstdetail`='$firstdetail' ,`second`='$secondd' ,`seconddetail`='$seconddetail' ,`installment`='$installment' ,
+                            `installmentdetail`='$installmentdetail' ,`yearlyone`='$yearlyone' ,`yearlyonedetail`='$yearlyonedetail' ,
+                            `yearlytwo`='$yearlytwo' ,`yearlytwodetail`='$yearlytwodetail' ,`yearlythree`='$yearlythree' ,`yearlythreedetail`='$yearlythreedetail' ,
+                            `completion`='$completion' ,`completiondetail`='$completiondetail' WHERE  `mutation`.`id` ='$id' and `mutation`.`what` ='$what' ";
  
 $result = mysqli_query($connect,$update_query);
 
