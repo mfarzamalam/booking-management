@@ -1,6 +1,11 @@
-<?php
+<?php 
+  include('common.php');
+?>
 
-    include("common.php");
+<?php 
+  if ($_SESSION['user'] == "") {
+        header('location:default.php');
+    }
 
 ?>
 
@@ -11,12 +16,22 @@
 <meta name="GENERATOR" content="Microsoft FrontPage 5.0">
 <meta name="ProgId" content="FrontPage.Editor.Document">
 <meta http-equiv="Content-Type" content="text/html; charset=WINDOWS-1252">
-<!-- <title>Receipts <%=Session("project")%></title> -->
+<title>Receipts <?php $_SESSION['project']?></title>
+
+
+
+<b><font size="2" face="Verdana" color="#800000"><center><?php echo $_SESSION['project']?></center></font></b>
 
     
 
 
 <script language="JavaScript">
+
+/***********************************************
+* Required field(s) validation v1.10- By NavSurf
+* Visit Nav Surf at http://navsurf.com
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
 
 function formCheck(formobj){
 	// Enter name of mandatory fields
@@ -108,45 +123,41 @@ function Enble()
 <form method="POST" style="font-family: Verdana; font-size: 12pt" action="receipt_add.php" name="formcheck" onsubmit="return formCheck(this);">
   <div align="center">
     <center>
-    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="60%">
-      
-    
+    <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="60%" id="AutoNumber1">
       <tr>
         <td width="23%"><font size="2">Date :-</font></td>
         <td width="43%">
-           <input type="text" name="date" size="14" style="font-family: Verdana; font-size: 10pt" value="
-           <?php  echo date("d/m/Y"); ?> ">
-        </td>
+        <input type="text" name="date" size="14" style="font-family: Verdana; font-size: 10pt" value="<?php echo date("d/m/Y");?>"></td>
       </tr>
-    
-
       <tr>
         <td width="23%"><font face="Verdana" size="2">Name :-</font></td>
         <td width="43%">
-            <input type="text" name="Name" size="36" value="" style="font-family: Verdana; font-size: 10pt">
-        </td>
+        <input type="text" name="Name" size="36" value="" style="font-family: Verdana; font-size: 10pt"></td>
       </tr>
-
-    
       <tr>
         <td width="23%"><font face="Verdana" size="2">Office No :-</font></td>
-        <td width="43%">
-            <select size="1" name="FlatNo" style="font-family: Verdana; font-size: 10pt">
-                  <?php
-                      $query = "SELECT * FROM `flats`";
-                      $result = mysqli_query($connect,$query);
-                      
-                      while($row = mysqli_fetch_array($result)){
-                        $office = $row['flats'];
-                        echo "<option>$office<br></option>";
-                      }
+        <td width="43%"><select size="1" name="FlatNo" style="font-family: Verdana; font-size: 10pt">
+            <?php 
 
-                  ?>
-            </select>
-        </td>
+              $SQL2 = "SELECT `flats` FROM `flats` where `what` = '$_SESSION[user]' order by `flats` ASc";
+              $rslt = mysqli_query($connect,$SQL2);
+              $rs = mysqli_fetch_assoc($rslt);
+            ?> 
+         
+         <!-- CHECK -->
+         <!-- only line 149 -->
+         <option value=" " selected> </option>
+
+            <?php while($row=mysqli_fetch_array($rslt)){?>
+
+               <option value="<?php echo $row['flats']?>"><?php echo $row['flats']?></option>
+ 
+                <?php }?>
+            </select></td>
       </tr>
-          
-    
+      
+      
+      
       <tr>
         <td width="23%"><font face="Verdana" size="2">Payment Mode :-</font></td>
         <td width="43%">
@@ -157,96 +168,111 @@ function Enble()
 		 <option value="Online Transfer">Online Transfer</option>
         </select></td>
       </tr>
-    
-    
       <tr>
         <td width="23%"><font face="Verdana" size="2">Amount ( RS ) :-</font></td>
         <td width="43%">
         <input type="text" name="Amount" size="36" style="font-family: Verdana; font-size: 10pt"></td>
       </tr>
-    
-    
       <tr>
         <td width="23%"><font face="Verdana" size="2">Cheque No :-</font></td>
         <td width="43%">
         <input type="text" name="chequeno" size="28" style="font-family: Verdana; font-size: 10pt"></td>
       </tr>
-    
-    
       <tr>
         <td width="23%"><font face="Verdana" size="2">Drawn on :-</font></td>
         <td width="43%">
        
-            <select size="1" name="drawnon" style="font-family: Verdana; font-size: 10pt">
-                <option value="-----">-----</option>
+       <select size="1" name="drawnon" style="font-family: Verdana; font-size: 10pt">
+       <option value="-----">-----</option>
 	   
-                  <?php
-                      $query = "SELECT * FROM `banklist`";
-                      $result = mysqli_query($connect,$query);
+	   <?php 
+$SQL2 = "SELECT `bankname` FROM `banklist`  order by `bankname` ASc";
+$rslt = mysqli_query($connect,$SQL2);
 
-                      while($row= mysqli_fetch_array($result)){
-                          $bank = $row['bankname'];
-                          echo "<option>$bank</option>";
-                      }
-                   ?>
+?>
+<?php while($rs=mysqli_fetch_array($rslt)){?>
 
-             </select>
+<option value="<?php echo $rs['bankname']?>"><?php echo $rs['bankname']?></option>
+<?php } ?>	   
+	   
+  
+
+  </select>
   
   
-             B / W <select size="1" name="contactno" style="font-family: Verdana; font-size: 10pt">
-                <option value="AB" selected>B</option>
-            <option value="W">W</option>
+     B / W <select size="1" name="contactno" style="font-family: Verdana; font-size: 10pt">
+       <option value="AB" selected>B</option>
+  <option value="W">W</option>
        </td>
       </tr>
-      
-      
       <tr>
         <td width="23%"><font face="Verdana" size="2">Cheque Date :-</font></td>
         <td width="43%">
-            <input type="text" name="chequedate" size="25" style="font-family: Verdana; font-size: 10pt" 
-            value=" <?php
-                        echo date("d/m/Y");                 
-                    ?>">
+        <input type="text" name="chequedate" size="25" style="font-family: Verdana; font-size: 10pt" value="<?php echo date("d/m/Y");?>">
 
-            Balance <select size="1" name="shbalance" style="font-family: Verdana; font-size: 10pt">
-            <option value="Show" selected>Show</option>
-            <option value="Hide">Hide</option></select>
+Balance <select size="1" name="shbalance" style="font-family: Verdana; font-size: 10pt">
+       <option value="Show" selected>Show</option>
+  <option value="Hide">Hide</option></select>
 
-        </td>
+</td>
       </tr>
-	  
-	  
-        <tr>
+	  <?php if($_SESSION['user'] == "pyramid") { ?>
+	    <tr>
         <td width="23%"><font face="Verdana" size="2">Rebate Taken:</font></td>
         <td width="43%">
 		
-        <font size="2">   
+ <font size="2">   
 
-        <script>
-            function myFunction() {
-                alert("Type A/B Rebate Max 12 Lacs Already Taken");
-            }
-        </script>
 
-        <script>
-            function myFunction() {
-                alert("Type V Rebate Max 9.6 Lacs Already Taken");
-            }
-        </script>
+ <!-- CHECK -->
+ <!-- FROM line 228 to line 253 need to check thoroughly -->
+<?php 
 
-		</td>
-      </tr>
+$strsql="SELECT sum(amount) as c from `receipts` WHERE FlatNo='$_GET[unitid]' AND `name` like '%reb%' and `what`='pyramid'";
+$rslt1 = mysqli_query($connect,$strsql);
+$Rs = mysqli_fetch_assoc($rslt1);
+
+?>
+        <?php if($Rs['c']== "") {?>
+          <%=FormatNumber(Rs("c"),-0)%>
+    <?php }?>
+		  </font>
+		  
+		  
+		  		<?php if ($_GET['unitid'] == "A" || $_GET['unitid'] == "B" && $Rs['c'] >= "1200000") { ?>
+<script>
+function myFunction() {
+  alert("Type A/B Rebate Max 12 Lacs Already Taken");
+}
+</script>
+        <?php } ?>
+
+    <?php if ($_GET['unitid'] == "A" && $Rs['c'] >= "960000") { ?>
+<script>
+function myFunction() {
+  alert("Type V Rebate Max 9.6 Lacs Already Taken");
+}
+</script>
+
+      <?php } ?>	
+
+    </td>
+
+  </tr>
+
+<?php } ?>
 		
 		
-		<tr>
+
+
+        <tr>
         <td width="23%"><font face="Verdana" size="2">Special Note :-</font></td>
         <td width="43%">
         <textarea rows="3"  style="font-family: Verdana; font-size: 10pt" name="specialnote" cols="40"></textarea>
 		
 		<select size="1" name="specialshow" style="font-family: Verdana; font-size: 10pt">
-            <option value="Show" selected>Show</option>
-            <option value="Hide">Hide</option>
-        </select>
+       <option value="Show" selected>Show</option>
+  <option value="Hide">Hide</option></select>
 		
 		</td>
       </tr>
@@ -258,33 +284,16 @@ function Enble()
   </font><input type="submit" value="Submit" style="font-family: Verdana; font-size: 10pt"><font size="2">
   <br>
 
+</font></font></p>
+
+ <!-- CHECK -->
+<!-- <input type="hidden" id="rebate" name="rebate" value="<%=request.querystring("rebate")%>"> -->
+<!-- <input type="hidden" id="agname" name="agname" value="<%=request.querystring("name")%>"> -->
+
 
 
 
 </form>
-
-      <?php 
-          
-        
-          // if(isset($_POST['Submit']))
-          // {
-          //   $DATE = $_POST['date'];
-          //   $NAME = $_POST['Name'];
-          //   $FLATNO = $_POST['FlatNo'];
-          //   $PAYMENT = $_POST['PaymentMode'];
-          //   $AMOUNT = $_POST['Amount'];
-          //   $CHQNO = $_POST['chequeno'];
-          //   $DRWNON = $_POST['drawnon'];
-          //   $CONTACT = $_POST['contactno'];
-          //   $CHKDATE = $_POST['chequedate'];
-          //   $SHBLNCE = $_POST['shbalance'];
-          //   $SPNOTE = $_POST['specialnote'];
-          //   $SPSHOW = $_POST['specialshow'];
-
-          // }
-      
-      
-      ?>
 
 </body>
 
