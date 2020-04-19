@@ -1,7 +1,14 @@
-  <?php
-    include("common.php");
+<?php 
+  include('common.php');
+?>
+
+<?php 
   
-  ?>
+  if ($_SESSION['user'] == "") {
+        header('location:default.php');
+    }
+
+?>
 <html>
 
 <head>
@@ -13,9 +20,9 @@
 </head>
 
 <body>
-<b><font size="2" face="Verdana" color="#800000"><center> </center></font></b>
-<p align="right"><font size="1" face="Verdana">Date : <?php  echo date("d/m/Y"); ?>
-
+<b><font size="2" face="Verdana" color="#800000"><center><?php echo $_SESSION['project']?></center></font></b>
+<p align="right"><font size="1" face="Verdana">Date : 
+        <?php echo date("d/m/Y");?>
  </font>
 </p>
 <p align="center"><b><font face="Verdana" size="5">Report Receivables</font></b></p>
@@ -37,43 +44,90 @@
   </tr>
 </table>
 
-        
-<?php
-    $query = "SELECT * from flats";
-    $result = mysqli_query($connect,$query);
-
+<?php 
+$query = "SELECT * FROM `flats` ORDER BY `flats` ASC";
+$result = mysqli_query($connect,$query);
     while($row = mysqli_fetch_array($result)) {
+
 ?>
+        
     
 <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
   <tr>
     <td width="20%" align="center">
-  <font size="1" face="Verdana"><a href="status_mutation_show.php?flatno=<?php echo $row['flats'] ?>">Mutation</a> - <?php echo $row['flats'] ?> 
-  - <a href="">Ledger</a></font>&nbsp;</td>
-<td width="20%" align="center"> <?php echo $row['name'] ?>
+  <font size="1" face="Verdana"><a href="status_mutation_show.php?flatno=<?php echo $row['flats'];?>">Mutation</a> - 
+  <?php echo $row['flats'];?>  - <a href="status_receipts_show.php?flatno=<?php echo $row['flats'];?>&name=<?php echo $row['name'];?>">Ledger</a></font>&nbsp;</td>
+<td width="20%" align="center">
 <font size="1" face="Verdana">
-<a href=""></a>
+<a href="receipts.php?unitid=<?php echo $row['flats'];?>&name=<?php echo $row['name'];?>&rebate=<?php echo $row['Broker'];?>"><?php echo $row['name'];?></a>
 </font>&nbsp;</td>
 <td width="15%" align="center">
+<?php 
 
+
+$SQL2 = "SELECT `sold` FROM `flats` where `flats`  = '$row[flats]' AND what = '$_SESSION[user]' order by `flats` ASc";
+$reslt = mysqli_query($connect,$SQL2);
+$ss = mysqli_fetch_assoc($reslt);
+
+$strsql="SELECT sum(Amount) as `c` from `receipts` WHERE `FlatNo`= '$row[flats]' AND `what` = '$_SESSION[user]'";
+$reslt2 = mysqli_query($connect,$strsql);
+$ts = mysqli_fetch_assoc($reslt);
+
+?>
 <font size="1" face="Verdana">
 
+<?php 
+ if (!$ts['c'] == "" ){
+   if (!$ss['sold'] == "") {
+
+    $receivedhisab = $ts['c']/($ss['sold']*100) ;
+    
+    echo $receivedhisab;
+
+  }
+}
+?>
  </font></td>
-		   <td width="15%" align="center"><font size="1" face="Verdana"><br>
+		   <td width="15%" align="center"><font size="1" face="Verdana"><?php echo $row['Broker'];?><br>
 		   
+		   <?php 
+$ps = "SELECT `buyeragentname` from `mutation` where  flatno = '$row[flats]' AND what = '$_SESSION[user]' ORDER by id DESC limit 0,1";
+$eof = mysqli_query($connect,$ps);
+
+while ($r = mysqli_fetch_array($eof)){ 
+
+    echo $r['buyeragentname'];
+ 
+  }
+	?>	   
 		   
 		   </font></td>
-    <td width="15%" align="center"><font size="1" face="Verdana"> <?php echo $row['sold'] ?> </font></td>
+    <td width="15%" align="center"><font size="1" face="Verdana"><?php echo $row['sold'];?></font></td>
     <td width="15%" align="center">
 <font size="1" face="Verdana">
+
+<?php 
+
+if (!$ts['c'] == "" ){
+   if (!$ss['sold'] == "") {
+
+      $b = $ss['sold']-$ts['c']; 
+          echo $b ;
+
+  }
+}
+
+?>
 
 
 </font></td>
   </tr>
 </table>
-<br>
 
 <?php } ?>
+
+<p>&nbsp;</p>
+
 
 
 <p align="center"><b><font face="Verdana" size="5">Last 10 Receipts</font></b></p>
@@ -95,15 +149,21 @@
 	 <td width="20%" align="center"><font size="1" face="Verdana"><b>CODE</b></font></td>
   </tr>
     
+      <?php 
+$SQL2 = "SELECT `date`,`Name`,`chequeno`,`Amount`,`FlatNo`,`code` from `receipts` where `what` = '$_SESSION[user]'  AND `name` <> 'hide'  order by ID DESC limit 0,10";
+$result2 = mysqli_query($connect,$SQL2);
 
+  while ($rs=mysqli_fetch_array($result2)){ 
+?>
   <tr>
-    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"></font></td>
-    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"></font></td>
-    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"></font></td>
-    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"></font></td>
-	 <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"></font></td>
+    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['date'];?></font></td>
+    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['Name'];?> *****  <?php echo $rs['chequeno'];?></font></td>
+    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['Amount'];?></font></td>
+    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['FlatNo'];?></font></td>
+	 <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['code'];?></font></td>
   </tr>
   
+  <?php } ?>  
     </table>
     </font></td>
   </tr>
@@ -128,13 +188,25 @@
     <td width="20%" align="center"><b><font face="Verdana" size="1">
 
       <center>
-  
-
-</center>
+<?php 
+$strsql="SELECT sum(Amount) as c from receipts WHERE what = '$_SESSION[user]'";
+$result3 = mysqli_query($connect,$strsql);
+$Rs = mysqli_fetch_assoc($result3);
+$aya = $Rs['c'];
+    echo $aya ; 
+ ?>
+ </center>
 </font></b></td>
     <td width="20%" align="center"><b><font face="Verdana" size="1">
  <center>
-
+ <?php 
+$strsql="SELECT sum(sold) as sprice from receipts WHERE what = '$_SESSION[user]'";
+$result4 = mysqli_query($connect,$strsql);
+$Rs2 = mysqli_fetch_assoc($result3);
+$baichahuwa = $Rs2['sprice']; 
+    echo $baichahuwa;
+ ?>
+    
     </center>
 
     
@@ -145,9 +217,11 @@
     
    
     <center>
-
-
-  </center>
+<?php  
+$b = $baichahuwa - $aya;
+echo $b;
+?>
+</center>
     
     
     
