@@ -2,7 +2,7 @@
     include("common.php");
 ?>
 <?php 
-  $flatno = $_GET['flatno'];
+  $flatno = $_GET['FlatNo'];
   $name = $_GET['name'];
   
   if ($_SESSION['user'] == "") {
