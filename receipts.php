@@ -2,12 +2,7 @@
   include('common.php');
 ?>
 
-<?php 
-  if ($_SESSION['user'] == "") {
-        header('location:default.php');
-    }
-
-?>
+ 
 
 <html>
 
@@ -27,12 +22,7 @@
 
 <script language="JavaScript">
 
-/***********************************************
-* Required field(s) validation v1.10- By NavSurf
-* Visit Nav Surf at http://navsurf.com
-* Visit http://www.dynamicdrive.com/ for full source code
-***********************************************/
-
+ 
 function formCheck(formobj){
 	// Enter name of mandatory fields
 	var fieldRequired = Array("Name", "Date", "PaymentMode", "Amount", "FlatNo", "chequeno", "drawnon", "chequedate");
@@ -138,10 +128,9 @@ function Enble()
         <td width="23%"><font face="Verdana" size="2">Office No :-</font></td>
         <td width="43%"><select size="1" name="FlatNo" style="font-family: Verdana; font-size: 10pt">
             <?php 
-
-              $SQL2 = "SELECT `flats` FROM `flats` where `what` = '$_SESSION[user]' order by `flats` ASc";
+              $what = $_SESSION["user"];
+              $SQL2 = "SELECT `flats` FROM `flats` where `What` = '$_SESSION[user]' order by `flats` ASc";
               $rslt = mysqli_query($connect,$SQL2);
-              $rs = mysqli_fetch_assoc($rslt);
             ?> 
          
          <!-- CHECK -->
@@ -227,19 +216,20 @@ Balance <select size="1" name="shbalance" style="font-family: Verdana; font-size
  <!-- CHECK -->
  <!-- FROM line 228 to line 253 need to check thoroughly -->
 <?php 
-
-$strsql="SELECT sum(amount) as c from `receipts` WHERE FlatNo='$_GET[unitid]' AND `name` like '%reb%' and `what`='pyramid'";
+if(isset($_GET["unitid"])){
+$unitid = $_GET["unitid"];
+$strsql="SELECT sum(amount) as c from `receipts` WHERE FlatNo='$unitid' AND `name` like '%reb%' and `what`='pyramid'";
 $rslt1 = mysqli_query($connect,$strsql);
 $Rs = mysqli_fetch_assoc($rslt1);
 
 ?>
-        <?php if($Rs['c']== "") {?>
-          <%=FormatNumber(Rs("c"),-0)%>
-    <?php }?>
+        <?php if( isset($RS['c'])) {
+    echo $RS['c'];          
+      }?>
 		  </font>
 		  
 		  
-		  		<?php if ($_GET['unitid'] == "A" || $_GET['unitid'] == "B" && $Rs['c'] >= "1200000") { ?>
+		  		<?php if ( isset($_GET['unitid']) &&  ($_GET['unitid'] == "A" || $_GET['unitid'] == "B")   && $Rs['c'] >= "1200000") { ?>
 <script>
 function myFunction() {
   alert("Type A/B Rebate Max 12 Lacs Already Taken");
@@ -247,7 +237,7 @@ function myFunction() {
 </script>
         <?php } ?>
 
-    <?php if ($_GET['unitid'] == "A" && $Rs['c'] >= "960000") { ?>
+    <?php if ( isset($_GET['unitid']) &&  ($_GET['unitid'] == "A" || $_GET['unitid'] == "B") && $Rs['c'] >= "960000") { ?>
 <script>
 function myFunction() {
   alert("Type V Rebate Max 9.6 Lacs Already Taken");
@@ -259,7 +249,7 @@ function myFunction() {
     </td>
 
   </tr>
-
+<?php }?>
 <?php } ?>
 		
 		
@@ -286,10 +276,11 @@ function myFunction() {
 
 </font></font></p>
 
- <!-- CHECK -->
-<!-- <input type="hidden" id="rebate" name="rebate" value="<%=request.querystring("rebate")%>"> -->
-<!-- <input type="hidden" id="agname" name="agname" value="<%=request.querystring("name")%>"> -->
+  <?php if(isset($_GET["name"])  &&isset($_GET["rebate"]) ) {?>
+ <input type="hidden" id="rebate" name="rebate" value="<?php  echo $_GET["rebate"] ?>" /> 
+  <input type="hidden" id="agname" name="agname" value="<?php echo $_GET["name"]  ?>" /> 
 
+  <?php }?>
 
 
 

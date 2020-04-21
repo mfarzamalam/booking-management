@@ -2,13 +2,7 @@
   include('common.php');
 ?>
 
-<?php 
-  if ($_SESSION['user'] == "") {
-        header('location:default.php');
-    }
-
-?>
-
+ 
 <?php 
 
 $dated = $_POST['date'];
@@ -21,11 +15,34 @@ $drawnon = $_POST['drawnon'];
 $chequedate = $_POST['chequedate'];
 $contactno = $_POST['contactno'];
 $specialnote = $_POST['specialnote'];
-$code = "code";
+$specialnote = $specialnote ."<br>";
 $from = $FlatNo." ".$_SESSION['user'];
 
-$strSQL1="INSERT INTO codemanager (`fromm`,`chqno`,`bank`,`code`,`datee`,`amount`) 
-                VALUES            ('$from','$chequeno','$drawnon','$code','$dated','$amount')";
+function generatePassword($passwordLength){
+  $permitted_chars  = "cgkmpwrtEFHsVX123456789";
+   $input_length = strlen($permitted_chars);
+   $random_string = '';
+   for($i = 0; $i < $passwordLength; $i++) {
+       $random_character = $permitted_chars [mt_rand(0, $input_length - 1)];
+       $random_string .= $random_character;
+   }
+
+   return $random_string;
+
+}
+
+if (strpos($name, "rebate") === false || strpos($amount, "-") === false  || $PaymentMode !== "Cash") {
+  $code = generatePassword(4);
+  $strSQL1="INSERT INTO codemanager (`fromm`,`chqno`,`bank`,`code`,`datee`,`amount`) 
+  VALUES            ('$from','$chequeno','$drawnon','$code','$dated','$amount')";
+
+$result2 = mysqli_query($connect,$strSQL1);
+  
+} 
+
+
+
+
 
 $result1 = mysqli_query($connect,$strSQL1);
 
@@ -39,7 +56,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 
 ?>
 
-<?php if(!$name == "rebate" || !$amount == "-" || $PaymentMode == "Cash" ) { ?>
+<?php if (strpos($name, "rebate") === false || strpos($amount, "-") === false  || $PaymentMode !== "Cash") { ?>
 
 <head>
 <link rel="stylesheet" href="popup.css">
@@ -53,7 +70,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 
 <body topmargin="0" leftmargin="0">
 
-<?php if(!$name == "rebate" || !$amount == "-" || !$PaymentMode == "Cash" ) { ?>
+<?php if (strpos($name, "rebate") === false && strpos($amount, "-") === false  && $PaymentMode !== "Cash") { ?>
 
 <div class='popup'>
 <div class='cnt223'>
@@ -70,7 +87,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" id="AutoNumber3" width="100%">
   <tr>
     <td width="92%">
-    <p align="center"><img border="0" src="<?php $_SESSION['logo'];?>"></td>
+    <p align="center"><img border="0" src="<?php echo $_SESSION['logo'];?>"></td>
   </tr>
 </table>
 <br>
@@ -108,21 +125,19 @@ $result2 = mysqli_query($connect,$strSQL2);
       <td width="625"><font size="3" face="Verdana"><i>=<?php echo $amount;?>/=</i></font></td>
     </tr>
 
-    <? if ($PaymentMode == "Cheque") {         ?>
+    <?php if ($PaymentMode == "Cheque") {         ?>
 <tr>
       <td width="185"><b><font size="3" face="Verdana">Cheque No :</font></b></td>
       <td width="625"><font size="3" face="Verdana"><?php echo $chequeno;?></font></td>
     </tr>
     <tr>
       <td width="185"><b><font size="3" face="Verdana">Drawn On :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><?php echo $drawnon;?></font> <b><font size="3" face="Verdana">Cheque Date :</font></b>  <font size="3" face="Verdana"><?php echo $chequedate;?></font></td>
+      <td width="625"><font size="3" face="Verdana"><?php echo $drawnon;?></font> 
+      <b><font size="3" face="Verdana">Cheque Date :</font></b>  
+      <font size="3" face="Verdana"><?php echo $chequedate;?></font></td>
     </tr>
-	<!--
-    <tr>
-      <td width="185"><b><font size="3" face="Verdana">Cheque Date :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><% response.write request.form("chequedate") %></font></td>
-    </tr> -->
-	
+	 
+  	
     <?php } elseif ($PaymentMode == "Payorder" ) {   ?>
     <tr>
       <td width="185"><b><font size="3" face="Verdana">Payorder No :</font></b></td>
@@ -130,7 +145,9 @@ $result2 = mysqli_query($connect,$strSQL2);
     </tr>
      <tr>
       <td width="185"><b><font size="3" face="Verdana">Drawn On :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><?php echo $drawnon;?></font> <b><font size="3" face="Verdana">Payorder Date :</font></b>  <font size="3" face="Verdana"><?php echo $chequedate;?></font></td>
+      <td width="625"><font size="3" face="Verdana"><?php echo $drawnon;?></font>
+       <b><font size="3" face="Verdana">Payorder Date :</font></b> 
+        <font size="3" face="Verdana"><?php echo $chequedate;?></font></td>
     </tr>
 	<!--
     <tr>
@@ -143,18 +160,19 @@ $result2 = mysqli_query($connect,$strSQL2);
    ?>
 	
 	
-      <?php if (!$FlatNo == "Utility") {?>
-        <?php if ($_GET['shbalance'] == "Show") {?>
+      <?php if ( $FlatNo !== "Utility") {?>
+        <?php if (  $_POST['shbalance'] == "Show") {?>
 
       <?php 
 $strsql="SELECT sum(amount) as c from `receipts` WHERE `FlatNo`='$FlatNo' AND `what` = '$_SESSION[user]'";
 $Rs = mysqli_query($connect,$strsql);
-
+$Rs = mysqli_fetch_assoc($Rs);
 $aya = $Rs['c'];
 
 
 $strsql="SELECT sum(sold) as sprice from `flats` WHERE `Flats`='$FlatNo' AND what = '$_SESSION[user]'";
 $Rs = mysqli_query($connect,$strsql);
+$Rs = mysqli_fetch_assoc($Rs);
 
 $baichahuwa = $Rs['sprice'];
 
@@ -170,39 +188,9 @@ $baichahuwa = $Rs['sprice'];
     echo $bee;
 
 ?>
+ 
 
-Set myMail=CreateObject("CDO.Message")
-myMail.Subject=""& Session("user") &" "& flatno &" "& name &" "& paymentmode &" "& amount &""
-myMail.From="MNM <fahad@pagespak.com>"
-myMail.To= "fahadmoon@gmail.com"
-'myMail.HTMLBody = ""& Session("user") &"<br>"& flatno &"<br>"& name &"<br>"& paymentmode &"<br>"& amount &"<br>"& bee &""
-
-myMail.HTMLBody = ""& bee &""
-
-
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/sendusing")=2
-'Name or IP of remote SMTP server
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/smtpserver") _
-="smtp.gmail.com"
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/smtpserverport") _
-=465
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/sendusername") = "fahad@pagespak.com"
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/sendpassword") = "XXXXXXXXXX"
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/smtpusessl") = True
-myMail.Configuration.Fields.Item _
-("http://schemas.microsoft.com/cdo/configuration/smtpauthenticate") = 1
-myMail.Configuration.Fields.Update
-myMail.Send
-set myMail=nothing
-
-
-%></b></font></td>
+ </b></font></td>
     </tr>
 	
 	<!--<tr>
@@ -220,11 +208,11 @@ set myMail=nothing
 		<tr>
       <td width="185"><b><font size="3" face="Verdana">Total Paid :</font></b></td>
       <td width="625"><font size="3" face="Verdana"><b><?php  
-		$receivedhisab = $aya/($baichahuwa*100);
+		$receivedhisab = ($aya/ $baichahuwa ) * 100 ;
           
-    echo $receivedhisab;
+    #echo number_format ($receivedhisab);
 		?>
-		<img src="http://www.yarntomato.com/percentbarmaker/button.php?barPosition=<?php $receivedhisab; ?>&amp;leftFill=" alt="Result" id="generated" width="102" height="15">
+		<img src="http://www.yarntomato.com/percentbarmaker/button.php?barPosition=<?php echo number_format($receivedhisab); ?>&amp;leftFill=" alt="Result" id="generated" width="102" height="15">
 		
 		</b></font></td>
     </tr>
@@ -234,11 +222,11 @@ set myMail=nothing
 	
 	    <tr>
       <td width="185"><b><font size="3" face="Verdana">Completion Date:</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><b><?php $_SESSION['completiondate']?></b></font></td>
+      <td width="625"><font size="3" face="Verdana"><b>[PAY BEFORE <?php echo   $_SESSION['completiondate']?> ]</b></font></td>
     </tr>
 	
-  <?php if($_GET['specialshow'] == "Show"){?>
-    <?php if(!$specialnote == ""){?>
+  <?php if($_POST['specialshow'] == "Show"){?>
+    <?php if($specialnote !== ""){?>
 
   <tr>
       <td width="185"><b><font face="Verdana" size="3">Special Note :</font></b></td>
@@ -253,11 +241,11 @@ set myMail=nothing
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '1' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>
     <tr style="border:1px dashed black;">
-      <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-      <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+      <td width="185"><b><font size="2" face="Verdana"><?php echo $ps['subject'];?></font></b></td>
+      <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
     </tr>
 <?php }?>
 
@@ -266,11 +254,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '2' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>
 	    <tr>
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php echo $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
       </tr>
 <?php }?>
 			
@@ -279,11 +267,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '3' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 	    <tr style="border:1px dashed black;">
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php echo $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
       </tr>
 <?php }?>
 	
@@ -292,11 +280,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '4' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 	    <tr>
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php echo  $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
     </tr>
 
 <?php }?>
@@ -307,11 +295,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '5' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 	    <tr style="border:1px dashed black;">
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php  echo $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
       </tr>
 <?php }?>
 
@@ -321,11 +309,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '6' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 	    <tr>
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php echo $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo $ps['message'];?></i></font></td>
     </tr>
 
 <?php }?>
@@ -336,11 +324,11 @@ while($ps = mysqli_fetch_array($result)){
 $query = "SELECT `subject`,`message` from `msg` where  `position` = '7' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 	    <tr style="border:1px dashed black;">
-        <td width="185"><b><font size="2" face="Verdana"><?php $ps['subject'];?></font></b></td>
-        <td width="625"><font size="2" face="Verdana"><i><?php $ps['message'];?></i></font></td>
+        <td width="185"><b><font size="2" face="Verdana"><?php echo $ps['subject'];?></font></b></td>
+        <td width="625"><font size="2" face="Verdana"><i><?php echo  $ps['message'];?></i></font></td>
       </tr>
 <?php }?>
 	
@@ -372,13 +360,13 @@ while($ps = mysqli_fetch_array($result)){
 <br>
 <table border="0" cellpadding="0" cellspacing="2" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
    
-  <?php if(!$FlatNo == "Utility"){?>
-      <?php if($_GET['shbalance'] == "Show"){?>  
+  <?php if($FlatNo !== "Utility"){?>
+      <?php if($_POST['shbalance'] == "Show"){?>  
   
 
 <tr>
 <td width="100%" align="center"><font size="1" face="Verdana">
-Please clear your all your Payments as per Schedule on Booking Letter before <?php $_SESSION['completiondate'];?>.
+Please clear your all your Payments as per Schedule on Booking Letter before <?php echo $_SESSION['completiondate'];?>.
 </font>
 </td>
 </tr>
@@ -391,10 +379,10 @@ Total Sale Price is excluded from Transfer fee, stamps duty, registration charge
 
 <?php 
 
-$query = "SELECT `subject`,`message` from `msg` where  `position` = '7' AND what = '$_SESSION[user]' ORDER by `id` ASC";
+$query = "SELECT `subject`,`message` from `msg` where  `position` = '8' AND what = '$_SESSION[user]' ORDER by `id` ASC";
 $result = mysqli_query($connect,$query);
 
-while($ps = mysqli_fetch_array($result)){ 
+while($ps = mysqli_fetch_assoc($result)){ 
 ?>	
 
 	<tr>
@@ -404,7 +392,7 @@ while($ps = mysqli_fetch_array($result)){
 
 <?php } ?>
 
-<?php if ($PaymentMode == "Cheque"){?>
+<?php if ($PaymentMode === "Cheque"){?>
 
 		 <tr>
 <td width="100%"><font size="0.5em" face="Verdana"><b><center>This receipt is valid upon Realization of Cheque!</center></b></font></td>
@@ -416,7 +404,8 @@ while($ps = mysqli_fetch_array($result)){
 
 
 <tr>
-<td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this receipt, I/We <b><%=request.form("agname")%></b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this receipt also I/We accept/undertake to abide by it in future.</center></font></td>
+
+<td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this receipt, I/We <b><?php if(isset($_POST["agname"])) echo $_POST["agname"] ?></b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this receipt also I/We accept/undertake to abide by it in future.</center></font></td>
   
 </tr>
 

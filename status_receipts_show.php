@@ -1,15 +1,7 @@
 <?php 
     include("common.php");
 ?>
-<?php 
-  $flatno = $_GET['FlatNo'];
-  $name = $_GET['name'];
-  
-  if ($_SESSION['user'] == "") {
-        header('location:default.php');
-    }
-?>
-
+ 
 <html>
 
 <head>
@@ -28,9 +20,13 @@
 
 <?php 
 
-if (!$name == "") { 
+$flatno = $_GET['FlatNo'];
+if (isset($_GET["name"])) { 
+  $name = $_GET['name'];
+  
 $SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `name` <> 'hide' AND `name` like '%$name%' AND what = '$_SESSION[user]' order by ID ASc";
 } else {
+  
 $SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `name` <> 'hide' AND what = '$_SESSION[user]' order by ID ASc";
 }
 
@@ -148,9 +144,9 @@ $Rs = mysqli_fetch_assoc($rslt1);
         </font></td>
         <td width="43%" align="center">
         <p align="left"><font size="2">( <?php 
-		$receivedhisab = $Rs['c']/($ss['sold']*100);
+		$receivedhisab = ($Rs['c']/ $ss['sold']) *100;
         
-        echo $receivedhisab;
+        echo    number_format($receivedhisab) ."%";
 		
 		?> )</font></td>
       </tr>
@@ -210,7 +206,7 @@ $Rs = mysqli_fetch_assoc($rslt1);
 <?php
     
     $b = $ss['sold']- $Rs['c'];
-    echo $b;
+    echo number_format($b);
 
 ?>
         
@@ -218,7 +214,7 @@ $Rs = mysqli_fetch_assoc($rslt1);
         
         </font></td>
         <td width="43%" align="center">
-        <p align="left"><font size="2">( <?php echo (100-$receivedhisab) ?> )</font></td>
+        <p align="left"><font size="2">( <?php echo number_format(100-$receivedhisab)  ?>% )</font></td>
       </tr>
       <tr>
         <td width="15%" align="center">&nbsp;</td>
@@ -229,19 +225,19 @@ $Rs = mysqli_fetch_assoc($rslt1);
     </table>
     </center>
   </div>
-  <?php if ($_SESSION['user'] == "pyramid"){ ?>
+  <?php if ($_SESSION['user'] === "pyramid"){ ?>
  <font size="2"> Rebate Taken :  
 <?php
 
 $strsql="SELECT sum(amount) as c from `receipts` WHERE `FlatNo`='$flatno' AND `name` like '%rebate%' and `what`='pyramid'";
 $rslt2 = mysqli_query($connect,$strsql);
-$Rs = mysqli_fetch_assoc($rslt1);
+$Rs = mysqli_fetch_assoc($rslt2);
 
-echo $Rs['c'];
+//echo $Rs['c'];
 
 ?>
         
-          <?php echo $Rs['c'];?></font>
+          <?php echo number_format($Rs['c']);?></font>
   <?php }?> </font>
 </form>
 

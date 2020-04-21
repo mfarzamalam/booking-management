@@ -4,10 +4,7 @@
 
 <?php 
   $id = $_GET['id'];
-
-  if ($_SESSION['user'] == "") {
-        header('location:default.php');
-    }
+ 
 
 ?>
 
@@ -154,7 +151,7 @@ $query = mysqli_query($connect,$SQL2);
 
 while ($fs = mysqli_fetch_array($query)){
 ?>
- <option value="<?php echo $fs['flats']; ?>"<? if($fs['flats'] == $rs['FlatNo']) {echo "selected"; }?>><?php echo $fs['flats']; ?></option>
+ <option value="<?php echo $fs['flats']; ?>" "<?php if($fs['flats'] == $rs['FlatNo']) {echo "selected"; }?>"><?php echo $fs['flats']; ?></option>
 
  <?php } ?>
 
@@ -164,10 +161,10 @@ while ($fs = mysqli_fetch_array($query)){
         <td width="23%"><font face="Verdana" size="2">Payment Mode :-</font></td>
         <td width="43%">
         <select size="1" name="PaymentMode" style="font-family: Verdana; font-size: 10pt" onChange="javascript:Enble();">
-        <option value="Cheque"<? if($rs['PaymentMode'] == "Cheque") {echo "selected"; }?>>Cheque</option>
-        <option value="Cash"<? if($rs['PaymentMode'] == "Cash") {echo "selected"; }?>>Cash</option>
-        <option value="Payorder"<? if($rs['PaymentMode'] == "Payorder") {echo "selected"; }?>>Payorder</option>
-		 <option value="Online Transfer"<? if($rs['PaymentMode'] == "Online Transfer") {echo "selected"; }?>>Online Transfer</option>
+        <option value="Cheque" "<?php if($rs['PaymentMode'] == "Cheque") {echo "selected"; }?>" >Cheque</option>
+        <option value="Cash" "<?php if($rs['PaymentMode'] == "Cash") {echo "selected"; }?>" >Cash</option>
+        <option value="Payorder" "<?php if($rs['PaymentMode'] == "Payorder") {echo "selected"; }?>" >Payorder</option>
+		 <option value="Online Transfer" "<?php if($rs['PaymentMode'] == "Online Transfer") {echo "selected"; }?>" >Online Transfer</option>
         </option>
         </select></td>
       </tr>
@@ -224,7 +221,7 @@ $query = mysqli_query($connect,$SQL2);
   <br>
   <br>
 &nbsp;</font></font></p>
-  <input type="hidden" name="id" value="<?php $id?>">
+  <input type="hidden" name="id" value="<?php echo $id ?>">
 </form>
 
 </body>
