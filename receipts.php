@@ -223,6 +223,7 @@ $rslt1 = mysqli_query($connect,$strsql);
 $Rs = mysqli_fetch_assoc($rslt1);
 
 ?>
+
         <?php if( isset($RS['c'])) {
     echo $RS['c'];          
       }?>

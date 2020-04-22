@@ -20,7 +20,10 @@
 
 <?php 
 
-$flatno = $_GET['FlatNo'];
+if(isset($_GET['flatno'] ))
+    $flatno = $_GET['flatno'];
+else 
+  $flatno = $_GET['FlatNo'];
 if (isset($_GET["name"])) { 
   $name = $_GET['name'];
   

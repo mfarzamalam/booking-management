@@ -30,8 +30,10 @@ function generatePassword($passwordLength){
    return $random_string;
 
 }
+// USAMA hussain rebate 
 
-if (strpos($name, "rebate") === false || strpos($amount, "-") === false  || $PaymentMode !== "Cash") {
+$code = "";
+if (strpos($name, "rebate") !== false || strpos($amount, "-") !== false  || $PaymentMode !== "Cash") {
   $code = generatePassword(4);
   $strSQL1="INSERT INTO codemanager (`fromm`,`chqno`,`bank`,`code`,`datee`,`amount`) 
   VALUES            ('$from','$chequeno','$drawnon','$code','$dated','$amount')";
@@ -40,11 +42,6 @@ $result2 = mysqli_query($connect,$strSQL1);
   
 } 
 
-
-
-
-
-$result1 = mysqli_query($connect,$strSQL1);
 
 
 $strSQL2="INSERT INTO receipts (`name`,`amount`,`chequedate`,`drawnon`,`chequeno`,`contactno`,`date`,
@@ -70,7 +67,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 
 <body topmargin="0" leftmargin="0">
 
-<?php if (strpos($name, "rebate") === false && strpos($amount, "-") === false  && $PaymentMode !== "Cash") { ?>
+<?php if (strpos($name, "rebate") !== false && strpos($amount, "-") !== false  && $PaymentMode !== "Cash") { ?>
 
 <div class='popup'>
 <div class='cnt223'>
@@ -405,7 +402,7 @@ while($ps = mysqli_fetch_assoc($result)){
 
 <tr>
 
-<td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this receipt, I/We <b><?php if(isset($_POST["agname"])) echo $_POST["agname"] ?></b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this receipt also I/We accept/undertake to abide by it in future.</center></font></td>
+<td width="100%"><font size="0.5em" face="Verdana"><center>By Accepting this receipt, I/We <b><?php if(isset($_POST["agname"]) ) echo $_POST["agname"] ?></b> acknowledge That I/We have read and understood do hereby accept all Terms & Conditions of this receipt also I/We accept/undertake to abide by it in future.</center></font></td>
   
 </tr>
 

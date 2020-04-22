@@ -45,9 +45,9 @@
 </table>
 
 <?php 
-$query = "SELECT * FROM `flats` ORDER BY `flats` ASC";
+$query = "SELECT * FROM `flats` where `what` ='$_SESSION[user]'  ORDER BY `flats` ASC  ";
 $result = mysqli_query($connect,$query);
-    while($row = mysqli_fetch_array($result)) {
+    while($row = mysqli_fetch_assoc($result)) {
 
 ?>
         
