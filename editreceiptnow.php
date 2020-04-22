@@ -27,7 +27,7 @@ $query="UPDATE `receipts` SET `date`='$dated', `Name`='$name', `FlatNo`='$FlatNo
                                 `Amount`='$Amount', `chequeno`='$chequeno', `drawnon`='$drawnon', 
                                 `chequedate`='$chequedate' WHERE `id` ='$id' and `what` ='$_SESSION[user]'"; 
 
-$result = mysqli_query($connect,$query);
+$result = mysqli_query($connect,$query); 
 
 
 header("location:edit_delete_receipts_show.php?FlatNo=$FlatNo");
