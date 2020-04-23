@@ -6,7 +6,7 @@
 
 <?
 // $strURL = $_GET['URL'];
-$strSearch = $_GET['search'];
+$strSearch = $_GET['search'];  // Problem in this line 
 ?>
 
 <b><font size="2" face="Verdana" color="#800000"><center><?php echo $_SESSION["project"]?></center></font></b>
