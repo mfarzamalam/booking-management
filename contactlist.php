@@ -55,7 +55,7 @@ Campain ID?<input type="text" name="campainid" size="20" value="">
 SMS SERVICE SENDING TIME: 11:45am to 12
 <br>
 
-<a href="contactlist.php">HOME</a> |<a href="historysms.asp">VIEW HISTORY SEND</a> | <a href="campain.php">View Campains</a> | <a href="viewedpage.php">Viewed Page</a>
+<a href="contactlist.php">HOME</a> |<a href="historysms.php">VIEW HISTORY SEND</a> | <a href="campain.php">View Campains</a> | <a href="viewedpage.php">Viewed Page</a>
  | <a href="testsms.php" target="_blank"  onclick="return confirm('Are you sure you want to Send TEST SMS?')">TEST SMS</a>
 <br>
 <?php

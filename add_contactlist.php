@@ -5,7 +5,6 @@
 <?php 
 
 
-
 function generatePassword($passwordLength){
        $permitted_chars  = "cgkmpwrtEFHsVX123456789";
         $input_length = strlen($permitted_chars);
@@ -21,23 +20,16 @@ function generatePassword($passwordLength){
 $code = generatePassword(4);
 
 
-
-
-
 $number = $_POST["number"];
 $name = $_POST["name"];
 $konhaiadd = $_POST["konhaiadd"];
 
-$query ="INSERT INTO contactlist (`number`,`konhai`,`code`,`name`)";
-$query =$query . " VALUES ( ";
-$query =$query  . "'$number' , ";
-$query =$query  . "'$konhaiadd' , " ;
-$query =$query  .  " '$code'  , " ;
-$query =$query  . "'$name'" .  " )";
+$query ="INSERT INTO contactlist (`number`,`konhai`,`code`,`name`) VALUES ('$number','$konhaiadd','$code','$name')";
 
 
-echo $query;
+// echo $query;
 $insert_data = mysqli_query($connect,$query);  
+
 if($insert_data)
 header('location:contactlist.php');
 else{
