@@ -141,6 +141,7 @@ $strsql="SELECT sum(amount) as c from `receipts` WHERE `FlatNo`='$flatno' AND wh
 $rslt1 = mysqli_query($connect,$strsql);
 $Rs = mysqli_fetch_assoc($rslt1);
 
+echo number_format($Rs["c"]);
 ?>
 
         
@@ -174,7 +175,7 @@ $Rs = mysqli_fetch_assoc($rslt1);
         <p align="right"><font size="1"><b>Sold :-</b></font></td>
         <td width="17%" align="center"><font size="1">
         
-        <?php echo $ss['sold']?>
+        <?php echo number_format($ss['sold'])?>
         
         </font></td>
         <td width="43%" align="center">
