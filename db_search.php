@@ -4,9 +4,13 @@
  
 ?>
 
-<?
+<?php
 // $strURL = $_GET['URL'];
-$strSearch = $_GET['search'];  // Problem in this line 
+if (isset($_GET["search"])) 
+$strSearch = $_GET['search'];
+else 
+$strSearch ="";
+  // Problem in this line 
 ?>
 
 <b><font size="2" face="Verdana" color="#800000"><center><?php echo $_SESSION["project"]?></center></font></b>
@@ -23,11 +27,11 @@ $strSearch = $_GET['search'];  // Problem in this line
 
 <center>
 <form action="db_search.php" method="get">
-<input name="search" value="<?php echo $strSearch?>" size="20" />
+<input name="search" value="<?php  echo $strSearch?>" size="20" />
 <input type="submit" />
 </form> </center>
 <?php
-    if (isset($_GET[$strSearch])) {
+    if (isset($_GET["search"])) {
 	
 $SQL2 = "SELECT * FROM `receipts` where `chequeno` like '%$strSearch%' OR `name` like '%$strSearch%' AND what = '$_SESSION[user]' order by ID ASc";
 $result = mysqli_query($connect,$SQL2);
@@ -72,13 +76,13 @@ $result = mysqli_query($connect,$SQL2);
     <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
       <tr>
         <td width="8%" align="center"><font face="Verdana" size="1"><?php echo $rs['date'];?></font>&nbsp;</td>
-        <td width="18%" align="center"><font face="Verdana" size="1"><?php echo $rs['name'];?>/font>&nbsp;</td>
-        <td width="8%" align="center"><font face="Verdana" size="1"><?php echo $rs['amount'];?></font>&nbsp;</td>
-        <td width="22%" align="center"><font face="Verdana" size="1"><?php $rs['drawnon'];?></font>&nbsp;</td>
-        <td width="10%" align="center"><font face="Verdana" size="1"><?php $rs['chequeno'];?></font>&nbsp;</td>
-        <td width="10%" align="center"><font face="Verdana"size="1"><?php $rs['chequedate'];?></font>&nbsp;</td>
-        <td width="13%" align="center"><font face="Verdana"size="1"><?php $rs['flatno'];?></font>&nbsp;</td>
-        <td width="28%" align="center"><font face="Verdana" size="1"><?php $rs['paymentmode'];?></font>
+        <td width="18%" align="center"><font face="Verdana" size="1"><?php echo $rs['Name'];?></font>&nbsp;</td>
+        <td width="8%" align="center"><font face="Verdana" size="1"><?php echo $rs['Amount'];?></font>&nbsp;</td>
+        <td width="22%" align="center"><font face="Verdana" size="1"><?php echo $rs['drawnon'];?></font>&nbsp;</td>
+        <td width="10%" align="center"><font face="Verdana" size="1"><?php echo $rs['chequeno'];?></font>&nbsp;</td>
+        <td width="10%" align="center"><font face="Verdana"size="1"><?php echo $rs['chequedate'];?></font>&nbsp;</td>
+        <td width="13%" align="center"><font face="Verdana"size="1"><?php echo $rs['FlatNo'];?></font>&nbsp;</td>
+        <td width="28%" align="center"><font face="Verdana" size="1"><?php echo $rs['PaymentMode'];?></font>
        
         </td>
       </tr>
