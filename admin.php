@@ -3,27 +3,27 @@
 ?>
 
 <?php
-    if ($_GET['form1'] == "Login") {
+    if ( isset ($_POST [ "form1"]) && $_POST['form1'] == "Login") {
 ?>
 
 <?php
 
-if ($_GET['user'] == "" || $_GET['pass'] == "") {
-header('location:default.php?a=Please enter your Password&url=""');
+if ($_POST['user'] == "" || $_POST['pass'] == "") {
+header("location:default.php?a=Please enter your Password&url=$_POST[url]");
 
 }
 
-if ($_GET['user'] == "hello" && $_GET['pass'] == "moto") {
-$_SESSION['adminid'] = $_GET['user'];
+if ($_POST['user'] === "hello" && $_POST['pass'] === "moto") {
+$_SESSION['adminid'] = $_POST['user'];
 
-if ($_GET['url'] == "") {
+if ( !isset($_POST["url"]) || $_POST['url'] === "") {
 			header('location:admin.php');
             } else {
-			// Response.Redirect request.form("url")		// NEED FIXING
+              header( "location:$_POST[url]");		// NEED FIXING
             }
 			
 } else {
-header('location:admin.php?a=Access Denied&url=');          // NEED FIXING
+header("location:admin.php?a=Access Denied&url= $_POST[url]");          // NEED FIXING
 }
 
 ?> <?php } ?>
@@ -42,9 +42,9 @@ header('location:admin.php?a=Access Denied&url=');          // NEED FIXING
 <body>
 <br>
 Welcome 
-<?php echo $_GET['a'];?>
+<?php if(isset($_GET['a'])) echo $_GET['a'];?>
 
-<?php if ($_SESSION['adminid'] == "" ) { ?>
+<?php if (!isset($_SESSION["adminid"]) || $_SESSION['adminid'] === "" ) { ?>
 
     <form method="POST" action="admin.php">
   <p>user:<input type="text" name="user" size="20"><br>
@@ -55,7 +55,7 @@ Welcome
 
 <? } else { ?>
 
-<?php  echo $_GET['remote_addr']?>
+<?php  if(isset($_GET['remote_addr'])) echo  $_GET['remote_addr']?>
 
 <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber3" bgcolor="#000000">
 <tr>

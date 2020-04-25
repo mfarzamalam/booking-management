@@ -103,7 +103,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 </div>
 <div align="center">
   <center>
-  <table background="https://chart.googleapis.com/chart?chl=<?php $_SESSION['project']?>%0A<?php $name;?>%0A<?php $FlatNo;?>%0A<?php $PaymentMode; ?>%0ARs.<?php $amount;?>&chs=175x175&cht=qr&chld=H%7C0" border="0" cellpadding="0" style="border-collapse: collapse; background-repeat:no-repeat; background-position:top right; background-size: 100px 100px;" width="95%" id="AutoNumber1" cellspacing="20">
+  <table background="https://chart.googleapis.com/chart?chl=<?php echo $_SESSION['project']?>%0A<?php echo $name;?>%0A<?php echo $FlatNo;?>%0A<?php echo $PaymentMode; ?>%0ARs.<?php echo $amount;?>&chs=175x175&cht=qr&chld=H%7C0" border="0" cellpadding="0" style="border-collapse: collapse; background-repeat:no-repeat; background-position:top right; background-size: 100px 100px;" width="95%" id="AutoNumber1" cellspacing="20">
    
     <tr>
       <td width="185"><b><font face="Verdana" size="3">Client Name :</font></b></td>
@@ -119,17 +119,17 @@ $result2 = mysqli_query($connect,$strSQL2);
     </tr>
     <tr>
       <td width="185"><b><font size="3" face="Verdana">Amount :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><i>=<?php echo $amount;?>/=</i></font></td>
+      <td width="625"><font size="3" face="Verdana"><i><?php if(strpos($amount, "-") === false) echo "=". $amount."/=" ;?></i></font></td>
     </tr>
 
     <?php if ($PaymentMode == "Cheque") {         ?>
 <tr>
       <td width="185"><b><font size="3" face="Verdana">Cheque No :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><?php echo $chequeno;?></font></td>
+      <td width="625"><font size="3" face="Verdana"><?php if(strpos($chequeno, "-") === false)  echo $chequeno;?></font></td>
     </tr>
     <tr>
       <td width="185"><b><font size="3" face="Verdana">Drawn On :</font></b></td>
-      <td width="625"><font size="3" face="Verdana"><?php echo $drawnon;?></font> 
+      <td width="625"><font size="3" face="Verdana"><?php if(strpos($drawnon, "-") === false) echo $drawnon;?></font> 
       <b><font size="3" face="Verdana">Cheque Date :</font></b>  
       <font size="3" face="Verdana"><?php echo $chequedate;?></font></td>
     </tr>
