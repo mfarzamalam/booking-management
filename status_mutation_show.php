@@ -27,7 +27,6 @@
 
 $query = "SELECT * FROM `mutation` where `flatno` = '$flatno' AND `what`='$_SESSION[user]' order by ID DESC";
 $result = mysqli_query($connect,$query);
-$row = mysqli_fetch_assoc($result);
 
 ?>
 
@@ -47,7 +46,7 @@ $row = mysqli_fetch_assoc($result);
     <table border="0" cellpadding="0" cellspacing="1" style="border-collapse: collapse" width="60%" id="AutoNumber1">
       <tr>
         <td width="23%"><font size="1">Office No :-</font></td>
-        <td width="43%"><font face="Verdana" size="1"><?php echo $row['flatno'];?></font></td>
+        <td width="43%"><font face="Verdana" size="1"><?php echo $flatno;?></font></td>
       </tr>
        </table>
 	  
@@ -68,20 +67,20 @@ $row = mysqli_fetch_assoc($result);
   </div>
 
 
-<% while not rs.eof%>
+<?php while ($rs = mysqli_fetch_assoc($result)) {?>
 
 
   <div align="center">
     <center>
     <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
       <tr>
-        <td width="10%" align="center"><font face="Verdana" size="1"><?php echo date("d/m/Y");?><br><a href="del_mutation.php?id=<?php echo $row['id'];?>&flatno=<?php echo $row['flatno'];?>" onclick="return confirm('Are you sure you want to Delete this Mutation?');">Delete</a><br><a href="edit_mutation.php?id=<?php echo $row['id'];?>&flatno=<?php echo $row['flatno'];?>">Edit</a></font>&nbsp;</td>
-        <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $row['name'];?><br><?php echo $row['cnic'];?><br><?php echo $row['contactno'];?><br>Agreed Price:<?php echo $row['price'];?></font>&nbsp;
+        <td width="10%" align="center"><font face="Verdana" size="1"><?php echo date("d/m/Y");?><br><a href="del_mutation.php?id=<?php echo $rs['id'];?>&flatno=<?php echo $rs['flatno'];?>" onclick="return confirm('Are you sure you want to Delete this Mutation?');">Delete</a><br><a href="edit_mutation.php?id=<?php echo $rs['id'];?>&flatno=<?php echo $rs['flatno'];?>">Edit</a></font>&nbsp;</td>
+        <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $rs['name'];?><br><?php echo $rs['cnic'];?><br><?php echo $rs['contactno'];?><br>Agreed Price:<?php echo $rs['price'];?></font>&nbsp;
 		<form action="sendsms.asp" method="post"  target="_blank">
 		<font face="Verdana" size="1">Receiver</font>
-		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $row['contactno'];?>">
-<textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $row['name'];?> 
-Unit No: <?php echo $row['flatno'];?> 
+		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $rs['contactno'];?>">
+<textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $rs['name'];?> 
+Unit No: <?php echo $rs['flatno'];?> 
 Total Dues:
 Kindly Clear
 <?php echo $_SESSION['project'];?> 
@@ -92,15 +91,15 @@ Kindly Clear
 		</form>
 		
 		</td>
-        <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $row['buyeragentname'];?><br><?php echo $row['buyeragentnumber'];?></font>
+        <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $rs['buyeragentname'];?><br><?php echo $rs['buyeragentnumber'];?></font>
 		
 		
 		<form action="sendsms.asp" method="post"  target="_blank">
 		<font face="Verdana" size="1">Receiver</font>
-		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $row['buyeragentnumber'];?>">
-<textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $row['buyeragentname'];?> 
-Unit No: <?php echo $row['flatno'];?> 
-You Client: <?php echo $row['name'];?> 
+		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $rs['buyeragentnumber'];?>">
+<textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $rs['buyeragentname'];?> 
+Unit No: <?php echo $rs['flatno'];?> 
+You Client: <?php echo $rs['name'];?> 
 Total Dues:
 Kindly Clear
 <?php echo $_SESSION['project'];?> 
@@ -114,55 +113,55 @@ Kindly Clear
 		</td>
         <td width="50%" align="center"><font size="1">
       
-      <?php if(!$row['balance'] == "") {?>
+      <?php if($rs['balance'] !== "") {?>
 		      Balance:
-		      <?php echo $row['balance'];?><br>
+		      <?php echo $rs['balance'];?><br>
 		      <br>
       <?php } ?>
 		
-  		<?php if(!$row['note'] == "") {?>
-	    	Note: <?php echo $row['note'];?><br>
+  		<?php if($rs['note'] !== "") {?>
+	    	Note: <?php echo $rs['note'];?><br>
 		    <br>
 		  <?php } ?>
 		
 			
-      <?php if(!$row['first'] == "") {?>
+      <?php if($rs['first'] !== "") {?>
     		PAYMENT SCHEDULE:-<BR>
-		    <?php echo $row['first'];?> | <?php echo $row['firstdetail'];?>
+		    <?php echo $rs['first'];?> | <?php echo $rs['firstdetail'];?>
       <?php } ?>
 
 		
-      <?php if(!$row['second'] == "") {?>
+      <?php if($rs['second'] !== "") {?>
           <br><br>
-		      <?php echo $row['second'];?> | <?php echo $row['seconddetail'];?>
+		      <?php echo $rs['second'];?> | <?php echo $rs['seconddetail'];?>
       <?php } ?>
 		
     
-      <?php if(!$row['installment'] == "") {?>
+      <?php if($rs['installment'] !== "") {?>
 		      <br><br>
-		      <?php echo $row['installment'];?> | <?php echo $row['installmentdetail'];?>
+		      <?php echo $rs['installment'];?> | <?php echo $rs['installmentdetail'];?>
       <?php } ?>
     
     
-      <?php if(!$row['yearlyone'] == "") {?>
+      <?php if($rs['yearlyone'] !== "") {?>
 		    <br><br>
-		    <?php echo $row['yearlyone'];?> | <?php echo $row['yearlyonedetail'];?>
+		    <?php echo $rs['yearlyone'];?> | <?php echo $rs['yearlyonedetail'];?>
       <?php } ?>
     
     
-      <?php if(!$row['yearlytwo'] == "") {?>
+      <?php if($rs['yearlytwo'] !== "") {?>
 		    <br><br>
-		    <?php echo $row['yearlytwo'];?> | <?php echo $row['yearlytwodetail'];?>
-      <?php } ?>
-
-      <?php if(!$row['yearlythree'] == "") {?>
-		    <br><br>
-		    <?php echo $row['yearlythree'];?> | <?php echo $row['yearlythreedetail'];?>
+		    <?php echo $rs['yearlytwo'];?> | <?php echo $rs['yearlytwodetail'];?>
       <?php } ?>
 
-      <?php if(!$row['completion'] == "") {?>
+      <?php if($rs['yearlythree'] !== "") {?>
 		    <br><br>
-		    <?php echo $row['completion'];?> | <?php echo $row['completiondetail'];?>
+		    <?php echo $rs['yearlythree'];?> | <?php echo $rs['yearlythreedetail'];?>
+      <?php } ?>
+
+      <?php if($rs['completion'] !== "") {?>
+		    <br><br>
+		    <?php echo $rs['completion'];?> | <?php echo $rs['completiondetail'];?>
       <?php } ?>
 	
 		
@@ -174,11 +173,7 @@ Kindly Clear
   </div>
   
   
-  <%
-rs.movenext
-wend
-%>
-  
+      <?php } ?>
   
 
 </body>
