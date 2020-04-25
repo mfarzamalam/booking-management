@@ -3,6 +3,9 @@
 ?>
 
 <?php 
+if(isset($_GET['FlatNo']))
+  $flatno = $_GET['FlatNo'];
+else 
   $flatno = $_GET['flatno'];
 
   if ($_SESSION['user'] == "") {

@@ -3,6 +3,12 @@
 ?>
 
  
+<?php
+$name = isset($_GET["name"]) ? $_GET["name"]:"";
+$unitid = isset($_GET["unitid"]) ? $_GET["unitid"]:"";
+$rebate =isset($_GET["rebate"]) ? $_GET["rebate"]:"";
+?>
+
 
 <html>
 
@@ -122,7 +128,7 @@ function Enble()
       <tr>
         <td width="23%"><font face="Verdana" size="2">Name :-</font></td>
         <td width="43%">
-        <input type="text" name="Name" size="36" value="" style="font-family: Verdana; font-size: 10pt"></td>
+        <input type="text" name="Name" size="36" value="<?php echo $name ?>" style="font-family: Verdana; font-size: 10pt"></td>
       </tr>
       <tr>
         <td width="23%"><font face="Verdana" size="2">Office No :-</font></td>
@@ -135,7 +141,7 @@ function Enble()
          
          <!-- CHECK -->
          <!-- only line 149 -->
-         <option value=" " selected> </option>
+         <option value="<?php echo $unitid;?>" selected> <?php echo $unitid;?></option>
 
             <?php while($row=mysqli_fetch_array($rslt)){?>
 
@@ -277,11 +283,11 @@ function myFunction() {
 
 </font></font></p>
 
-  <?php if(isset($_GET["name"])  &&isset($_GET["rebate"]) ) {?>
- <input type="hidden" id="rebate" name="rebate" value="<?php  echo $_GET["rebate"] ?>" /> 
-  <input type="hidden" id="agname" name="agname" value="<?php echo $_GET["name"]  ?>" /> 
+  
+ <input type="hidden" id="rebate" name="rebate" value="<?php  echo $rebate?>" /> 
+  <input type="hidden" id="agname" name="agname" value="<?php echo  $name ?>" /> 
 
-  <?php }?>
+  
 
 
 

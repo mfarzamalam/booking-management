@@ -142,7 +142,7 @@ $result = mysqli_query($connect,$update_query);
   <table  style="border:1px dashed black;" border="0" cellpadding="0" style="border-collapse: collapse" width="100%" cellspacing="3">
   -->
   
-<table background="https://chart.googleapis.com/chart?chl=<?php $_SESSION['logo']?>>%0A<?php echo date("d/m/Y");?>%0A<?php echo $name;?>%0A<?php echo $status ;?>%0A<?php echo $FlatNo ;?><?php if(!$price == "") { ;?>%0APrice: <?php $price?><?php } ?><?php if(!$balance == "") { ;?>%0ABuilder Balance:<?php echo $balance?> <?php } ?>&chs=125x125&cht=qr&chld=H%7C0" border="0" cellpadding="0" cellspacing="3" style="border:1px dashed black; background-repeat:no-repeat; background-position:top right; background-size: 125px 125px;" width="100%">
+<table background="https://chart.googleapis.com/chart?chl=<?php echo $_SESSION['project']?>%0A<?php echo date("d/m/Y");?>%0A<?php echo $name;?>%0A<?php echo $status ;?>%0A<?php echo $FlatNo ;  if($price !== "") { ;?>%0APrice: <?php echo $price?><?php } ?><?php if($balance !== "") { ;?>%0ABuilder Balance:<?php echo $balance?> <?php } ?>&chs=125x125&cht=qr&chld=H%7C0" border="0" cellpadding="0" cellspacing="3" style="border:1px dashed black; background-repeat:no-repeat; background-position:top right; background-size: 125px 125px;" width="100%">
     <?php 
       if (!$dated == "" ) {
     ?>
