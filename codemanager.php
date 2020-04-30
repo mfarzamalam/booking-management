@@ -27,7 +27,7 @@ body   { font-family: Arial; font-size: 12pt }
 <br>
     <hr color="#000000" size="1">
 	
-	<?php echo isset($_GET['msg'])?>
+	<?php echo isset($_GET['msg'])? $_GET['msg']:"" ?>
 	
 	<br>
 	<h5> SEARCH <h5>
@@ -66,11 +66,11 @@ body   { font-family: Arial; font-size: 12pt }
        <option value="-----">-----</option>
  <?php
 $SQL2 = "SELECT `bankname` FROM `banklist`  order by `bankname` ASc";
-$result = mysqli_query($connect,$SQL2);
+$result_sql2 = mysqli_query($connect,$SQL2);
 
 ?>
 
-<?php while($rs = mysqli_fetch_assoc($result)) {?> 
+<?php while($rs = mysqli_fetch_assoc($result_sql2)) {?> 
 
 <option value="<?php echo $rs['bankname'];?>"><?php echo $rs['bankname'];?></option>
 
@@ -84,25 +84,26 @@ $result = mysqli_query($connect,$SQL2);
 </tr>
 </form>
 
-<?
-$q = isset($_GET['q']);
+<?php
+$q = isset($_GET['q']) ? $_GET['q'] : "" ;
 
 if ($q !== "") {
 $query = "SELECT * from `codemanager` where `code` like '%$q%' OR `fromm` like '%$q%' OR `chqno` like '%$q%' OR `bank` like '%$q%' ORDER by id DESC limit 0,30";
-$query = "SELECT * from `codemanager` where `from` like '%$q%' OR `chqno` like '%$q%' OR `bank` like '%$q%' AND `what` = '$_SESSION[user]' ORDER by id DESC limit 0,30";
+//$query = "SELECT * from `codemanager` where `from` like '%$q%' OR `chqno` like '%$q%' OR `bank` like '%$q%' AND `what` = '$_SESSION[user]' ORDER by id DESC limit 0,30";
 
-$result = mysqli_query($connect,$query);
-
+$result_query = mysqli_query($connect,$query);
+ 
 } else {
 
 $query = "SELECT * from `codemanager` ORDER by ID DESC limit 0,30";
-$query = "SELECT * from `codemanager` where what = '$_SESSION[user]' ORDER by id DESC";
+ 
 
-$result = mysqli_query($connect,$query);
+$result_query = mysqli_query($connect,$query);
 
+ 
 }
 
-while($ps = mysqli_fetch_assoc($result)) {  // Warning: mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given
+while($ps = mysqli_fetch_assoc($result_query)) {  
     
 ?>
 
@@ -138,8 +139,8 @@ $result = mysqli_query($connect,$SQL2);
 	  </form>
 
 	  
-<?php } 
-
+<?php 
+}
 $ps = "Nothing";
 ?>
     </table>

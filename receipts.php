@@ -139,8 +139,7 @@ function Enble()
               $rslt = mysqli_query($connect,$SQL2);
             ?> 
          
-         <!-- CHECK -->
-         <!-- only line 149 -->
+ 
          <option value="<?php echo $unitid;?>" selected> <?php echo $unitid;?></option>
 
             <?php while($row=mysqli_fetch_array($rslt)){?>

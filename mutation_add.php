@@ -67,10 +67,10 @@ $query="INSERT INTO mutation (`type`,`date`,`name`,`cnic`,`contactno`,`secondcon
                               '$completiondetail','$what')";
  
 $result = mysqli_query($connect,$query);
-
+echo mysqli_error($connect);
 }
 
-if($_POST['mode'] == "edit"){
+if( isset($_POST['mode']) && $_POST['mode'] == "edit"){
 
 $id = $_POST['id'];
 $typed = $_POST['type'];
@@ -121,7 +121,7 @@ $update_query="UPDATE `mutation` Set `type`='$typed' ,`date`='$dated' ,`name`='$
                             `completion`='$completion' ,`completiondetail`='$completiondetail' WHERE  `mutation`.`id` ='$id' and `mutation`.`what` ='$what' ";
  
 $result = mysqli_query($connect,$update_query);
-
+echo mysqli_error($connect);
 }
 
 ?>

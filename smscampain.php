@@ -36,9 +36,9 @@ setTimeout("self.close();",5000)
   
 
 <?php 
-$konhaiadd = $_GET['konhaiadd'];
-$message = $_GET['message'];
-$campainid = $_GET['campainid'];
+$konhaiadd = $_POST['konhaiadd'];
+$message = $_POST['message'];
+$campainid = $_POST['campainid'];
 
 
 if ($campainid == "") {
@@ -63,8 +63,8 @@ $name = $ps['name'];
 $code = $ps['code'];
 
 $message = "$name + " . "+ $message" ;
-
-// $receiver = Replace(receiver,"00923","923")  // NEED FIXING
+$receiver =str_replace("00923","923",$receiver);
+ 
 
 $combine = "$name"."\n"."$message"."\n"."http://luckybuilders.com.pk/details-"."$campainid"."-"."$code";
 

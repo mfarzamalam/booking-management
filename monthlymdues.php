@@ -37,7 +37,7 @@ if ($q !== "") {  ?>
 <?php
 $query = "SELECT * from `flats` where `what` = '$_SESSION[user]' and `monthlym` > 0 ORDER by id ASC";
 
-$result = mysqli_query($connect,$query);
+$result_flats = mysqli_query($connect,$query);
 
 ?>
 
@@ -59,7 +59,7 @@ $result = mysqli_query($connect,$query);
 
     <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber2">
  
-    <?php while($rs = mysqli_fetch_array($result)) { ?>     
+    <?php while($rs = mysqli_fetch_array($result_flats)) { ?>     
  
     <tr>
       
