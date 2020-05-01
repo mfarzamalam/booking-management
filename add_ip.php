@@ -1,17 +1,17 @@
 <?php
- include('common.php');
+ include('commonadmin.php');
 ?>
 
 <?php
 
-$ip = $_GET['ip'];
+$ip = $_POST['ip'];
 
 $strSQL="INSERT INTO ip (ip) VALUES ('$ip') ";
 $result = mysqli_query($connect,$strSQL);
-
+ 
 if ($result){
 
-    header('location:admin.asp'); 
+    header('location:admin.php'); 
 
 }
 
@@ -21,7 +21,7 @@ if ($result){
 
 <script language="javascript">
 
-setTimeout("self.close();",500)
+ setTimeout("self.close();",500)
 
 //-->
 </script> 

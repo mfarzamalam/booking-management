@@ -1,19 +1,19 @@
 <?php
- include('common.php');
+ include('commonadmin.php');
 ?>
 
 <?php
 
-$id = $_GET['id'];
-$ip = $_GET['ip'];
+$id = $_POST['id'];
+$ip = $_POST['ip'];
 
 $strSQL = "UPDATE `ip` SET  `ip`=('$ip') WHERE `id`=('$id')"; 
 
 $result = mysqli_query($connect,$strSQL);
-
+ 
 if ($result){
 
-    header('location:admin.asp'); 
+    header('location:admin.php'); 
 
 }
 

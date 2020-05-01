@@ -1,32 +1,31 @@
 <?php
- include('common.php');
+ include('commonadmin.php');
 ?>
 
 <?php
     if ( isset ($_POST [ "form1"]) && $_POST['form1'] == "Login") {
-?>
-
-<?php
-
+ 
 if ($_POST['user'] == "" || $_POST['pass'] == "") {
 header("location:default.php?a=Please enter your Password&url=$_POST[url]");
-
+ 
 }
 
 if ($_POST['user'] === "hello" && $_POST['pass'] === "moto") {
-$_SESSION['adminid'] = $_POST['user'];
+        $_SESSION['adminid'] = $_POST['user'];
 
 if ( !isset($_POST["url"]) || $_POST['url'] === "") {
-			header('location:admin.php');
+                   header('location:admin.php');
+         
             } else {
-              header( "location:$_POST[url]");		// NEED FIXING
+           //   header( "location:$_POST[url]");	 
+ 
             }
 			
 } else {
-header("location:admin.php?a=Access Denied&url= $_POST[url]");          // NEED FIXING
+header("location:admin.php?a=Access Denied&url= $_POST[url]");         
+ 
 }
-
-?> <?php } ?>
+  } ?>
 
 <html>
 
@@ -44,7 +43,7 @@ header("location:admin.php?a=Access Denied&url= $_POST[url]");          // NEED 
 Welcome 
 <?php if(isset($_GET['a'])) echo $_GET['a'];?>
 
-<?php if (!isset($_SESSION["adminid"]) || $_SESSION['adminid'] === "" ) { ?>
+<?php if ( !isset($_SESSION["adminid"])   ) { ?>
 
     <form method="POST" action="admin.php">
   <p>user:<input type="text" name="user" size="20"><br>
@@ -53,9 +52,9 @@ Welcome
   <input type="hidden" name="url" value="<?php echo $_GET['url'] ?>">
 </form>
 
-<? } else { ?>
+<?php } else { ?>
 
-<?php  if(isset($_GET['remote_addr'])) echo  $_GET['remote_addr']?>
+<?php echo  $_SERVER['REMOTE_ADDR']?>
 
 <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="100%" id="AutoNumber3" bgcolor="#000000">
 <tr>
@@ -65,9 +64,9 @@ Welcome
     </table>
     <table border="1" cellpadding="0" cellspacing="3" style="border-collapse: collapse" bordercolor="#111111" width="100%" id="AutoNumber4">
 
-<form method="POST" action="add_ip.asp" target="_blank">
+<form method="POST" action="add_ip.php" target="_blank">
 <tr>
-<td width="80%"><input type="text" name="ip" size="20" value="<?php echo $_GET['remote_addr']?>"></td>
+<td width="80%"><input type="text" name="ip" size="20" value="<?php echo $_SERVER['REMOTE_ADDR']?>"></td>
 <td width="20%"><input type="submit" value="Add NEW" name="B1"> </td>
 </tr>
 </form>
@@ -81,11 +80,10 @@ while ($ps = mysqli_fetch_assoc($result)) {
 ?>
   <form method="POST" action="update_ip.php" target="_blank">
 <tr>
-<td width="80%"><input type="text" name="ip" size="20" value=""></td>
-<td width="20%"><input type="submit" value="Update" name="B1"> <a href="delip.php?id=<?php $ps['id'];?>">Delete</a> </td>
+<td width="80%"><input type="text" name="ip" size="20" value=""><?php echo $ps['ip']; ?></td>
+<td width="20%"><input type="submit" value="Update" name="B1"> <a href="delip.php?id=<?php echo $ps['id'];?>">Delete</a> </td>
 </tr>
-	    <input type="hidden" name="id" value="<?php $ps['id'];?>">
-		
+	    <input type="hidden" name="id" value="<?php echo $ps['id'];?>">		
 	  </form>
 
 <?php }
