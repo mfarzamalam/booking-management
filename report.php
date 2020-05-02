@@ -71,18 +71,19 @@ $ss = mysqli_fetch_assoc($reslt);
 
 $strsql="SELECT sum(Amount) as `c` from `receipts` WHERE `FlatNo`= '$row[flats]' AND `what` = '$_SESSION[user]'";
 $reslt2 = mysqli_query($connect,$strsql);
-$ts = mysqli_fetch_assoc($reslt);
+$ts = mysqli_fetch_assoc($reslt2);
 
 ?>
 <font size="1" face="Verdana">
 
 <?php 
- if (!$ts['c'] == "" ){
-   if (!$ss['sold'] == "") {
+ if ($ts['c'] !== "" ){
+   if ($ss['sold'] !== "") {
 
-    $receivedhisab = $ts['c']/($ss['sold']*100) ;
+    echo number_format($ts['c']);
+    $receivedhisab = $ts['c']/($ss['sold']) *100 ;
     
-    echo $receivedhisab;
+    echo " ( ". number_format($receivedhisab)  . "% )";
 
   }
 }
@@ -193,18 +194,19 @@ $strsql="SELECT sum(Amount) as c from receipts WHERE what = '$_SESSION[user]'";
 $result3 = mysqli_query($connect,$strsql);
 $Rs = mysqli_fetch_assoc($result3);
 $aya = $Rs['c'];
-    echo $aya ; 
+    echo  number_format($aya)  ; 
  ?>
  </center>
 </font></b></td>
     <td width="20%" align="center"><b><font face="Verdana" size="1">
  <center>
  <?php 
-$strsql="SELECT sum(sold) as sprice from receipts WHERE what = '$_SESSION[user]'";
+$strsql="SELECT sum(sold) as sprice from flats WHERE what = '$_SESSION[user]'";
 $result4 = mysqli_query($connect,$strsql);
-$Rs2 = mysqli_fetch_assoc($result3);
+echo mysqli_error($connect);
+$Rs2 = mysqli_fetch_assoc($result4);
 $baichahuwa = $Rs2['sprice']; 
-    echo $baichahuwa;
+    echo number_format(  $baichahuwa);
  ?>
     
     </center>
@@ -219,7 +221,7 @@ $baichahuwa = $Rs2['sprice'];
     <center>
 <?php  
 $b = $baichahuwa - $aya;
-echo $b;
+echo number_format($b);
 ?>
 </center>
     

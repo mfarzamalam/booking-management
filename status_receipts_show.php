@@ -19,7 +19,7 @@
 
 
 <?php 
-
+$SQL2="";
 if(isset($_GET['flatno'] ))
     $flatno = $_GET['flatno'];
 else 
@@ -27,15 +27,17 @@ else
 if (isset($_GET["name"])) { 
   $name = $_GET['name'];
   
-$SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `name` <> 'hide' AND `name` like '%$name%' AND what = '$_SESSION[user]' order by ID ASc";
+$SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `Name` <> 'hide' AND `Name` like '%$name%' AND what = '$_SESSION[user]' order by ID ASc";
 } else {
   
-$SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `name` <> 'hide' AND what = '$_SESSION[user]' order by ID ASc";
+$SQL2 = "SELECT * FROM `receipts` where `FlatNo` = '$flatno' AND `Name` <> 'hide' AND what = '$_SESSION[user]' order by ID ASc";
 }
-
+ 
 $result = mysqli_query($connect,$SQL2);
-$row = mysqli_fetch_assoc($result);
+//$row = mysqli_fetch_assoc($result);
 
+
+ 
 ?>
 
 
@@ -82,7 +84,7 @@ $row = mysqli_fetch_assoc($result);
 
 <?php 
 
-    while($row = mysqli_fetch_array($result)){
+    while($row = mysqli_fetch_assoc($result)){
 
 ?>
 
