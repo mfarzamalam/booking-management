@@ -12,13 +12,13 @@ function send_mail($subject, $content,$recepicent ,$recepicent_name ){
     $mail->IsSMTP();
     $mail->Mailer = "smtp";
 
-    $mail->SMTPDebug  = 1;  
+    $mail->SMTPDebug  = false;  
     $mail->SMTPAuth   = TRUE;
     $mail->SMTPSecure = "tls";
     $mail->Port       = 587;
     $mail->Host       = "smtp.gmail.com";
-    $mail->Username   = "your-gmail@gmail.com";// Your GMAIL 
-    $mail->Password   = "Password"; // GMAIL PASSWORD
+    $mail->Username   = "your-mail@gmail.com";// Your GMAIL 
+    $mail->Password   = "password"; // GMAIL PASSWORD
     $mail->IsHTML(true);
     $mail->AddAddress($recepicent, $recepicent_name); // RECIPIENTS ADDRESS
     $mail->SetFrom("fahad@pagespak.com", "MNM"); // FROM ADDRESS

@@ -1,5 +1,6 @@
 <?php 
   include('common.php');
+  include('send_mail.php');
 ?>
 
  
@@ -182,8 +183,14 @@ $baichahuwa = $Rs['sprice'];
     
     $bee = $baichahuwa-$aya;
 
-    echo $bee;
+    echo number_format ($bee);
 
+    // send Mail
+    $subject = $_SESSION["user"]  ." ".  $FlatNo . "  " .$name ."  ".$PaymentMode ."  " .$amount;
+    $recepicent="syedqasim8888@gmail.com";
+    $recepicent_name ="Qasim";
+    $content =$bee;
+    send_mail($subject,$content,$recepicent,$recepicent_name);
 ?>
  
 
