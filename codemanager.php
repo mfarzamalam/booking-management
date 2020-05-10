@@ -132,7 +132,7 @@ $result = mysqli_query($connect,$SQL2);
 <td width="20%"><input type="text" name="amount" size="20" value="<?php echo $ps['amount'];?>">
 
 </td>
-<td width="20%"><input type="submit" value="Update" name="B1"> <a href="delcode.php?id=<?php echo $ps['ID'];?>" onclick="return confirm('Are you sure you want to Delete this Receipt?');">Delete</a></td>
+<td width="20%"><input type="submit" value="Update" name="B1"> <a href="delcode.php?id=<?php echo $ps['id'];?>" onclick="return confirm('Are you sure you want to Delete this Receipt?');">Delete</a></td>
 </tr>
 	    <input type="hidden" name="id" value="<?php echo $ps['id'];?>">
 		

@@ -4,9 +4,9 @@
 ?>
 <?php
 
-$ID= $_POST['id'];
+$ID= $_GET['id'];
 
-$strSQL="DELETE  FROM `codemanager` WHERE `id` =('$ID')";
+$strSQL="DELETE  FROM `codemanager` WHERE `id`='$ID'";
 
 $result = mysqli_query($connect,$strSQL);
 
