@@ -79,7 +79,7 @@ $result = mysqli_query($connect,$query);
       <tr>
         <td width="10%" align="center"><font face="Verdana" size="1"><?php echo date("d/m/Y");?><br><a href="del_mutation.php?id=<?php echo $rs['id'];?>&flatno=<?php echo $rs['flatno'];?>" onclick="return confirm('Are you sure you want to Delete this Mutation?');">Delete</a><br><a href="edit_mutation.php?id=<?php echo $rs['id'];?>&flatno=<?php echo $rs['flatno'];?>">Edit</a></font>&nbsp;</td>
         <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $rs['name'];?><br><?php echo $rs['cnic'];?><br><?php echo $rs['contactno'];?><br>Agreed Price:<?php echo $rs['price'];?></font>&nbsp;
-		<form action="sendsms.asp" method="post"  target="_blank">
+		<form action="sendsms.php" method="post"  target="_blank">
 		<font face="Verdana" size="1">Receiver</font>
 		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $rs['contactno'];?>">
 <textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $rs['name'];?> 
@@ -97,7 +97,7 @@ Kindly Clear
         <td width="20%" align="center"><font face="Verdana" size="1"><?php echo $rs['buyeragentname'];?><br><?php echo $rs['buyeragentnumber'];?></font>
 		
 		
-		<form action="sendsms.asp" method="post"  target="_blank">
+		<form action="sendsms.php" method="post"  target="_blank">
 		<font face="Verdana" size="1">Receiver</font>
 		<input type="text" id="receiver" name="receiver" size="20" value="<?php echo $rs['buyeragentnumber'];?>">
 <textarea rows="10" name="message" cols="25"  style="font-size: 10pt">Dear <?php echo $rs['buyeragentname'];?> 
