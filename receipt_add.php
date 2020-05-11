@@ -57,7 +57,7 @@ $result2 = mysqli_query($connect,$strSQL2);
 <?php if (strpos($name, "rebate") === false || strpos($amount, "-") === false  || $PaymentMode !== "Cash") { ?>
 
 <head>
-<link rel="stylesheet" href="popup.css">
+ 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="popup.js"></script>
 

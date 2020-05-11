@@ -29,7 +29,7 @@ function send_mail($subject, $content,$recepicent ,$recepicent_name ){
     
     $mail->MsgHTML($content); 
     if(!$mail->Send()) {
-        var_dump($mail);
+      //  var_dump($mail);
    
         return    "Error while sending Email.";
     } else {
