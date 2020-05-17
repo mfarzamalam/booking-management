@@ -10,11 +10,13 @@
 </head>
 <body>
 
-    <font size="3" color="#800000">
+    <font size="2" face="Verdana" color="#800000">
         <center><?php echo $_SESSION['project'];  ?></center>
     </font>
     <br>
     <div align="center">
+    <font face="Verdana"> 
+   
         <b>
             <font style="font-size: 20px">
                 <a href="receipts.php">Receipt Voucher</a><br>
@@ -34,6 +36,7 @@
                 <a href="logout.php">Logout</a>
             </font>
         </b>
+    </font>
     </div>
 
 </body>

@@ -17,24 +17,20 @@ if(  isset($_SESSION['user']) )
 <br><br><br> <br><br><br>
     <form action="logincheck.php" method="POST">
         <div align="center">    
-           <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
-                <tbody>
+        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="50%" id="AutoNumber1">
+      <tbody>
                     <tr>
-                        <td width="30%">
-                             <font size="3"> Username : </font>   
-                        </td>
-                        <td width="70%">
-                            <input size="20" type="text" name="username" value="">
-                        </td>
-                    </tr>
+                    <tr>
+        <td width="26%"><font face="Verdana" size="2">Username :</font></td>
+        <td width="74%"><font face="Verdana">
+        <input type="password" name="user" size="20" style="font-family: Verdana; font-size: 10pt"></font></td>
+      </tr>
+      <tr>
+        <td width="26%"><font face="Verdana" size="2">Password :</font></td>
+        <td width="74%"><font face="Verdana">
+        <input type="password" name="pass"  size="20" style="font-family: Verdana; font-size: 10pt"></font></td>
+      </tr>
 
-                    <tr>
-                        <td width="30%">
-                            <font size="3"> Password :</font>
-                        </td>
-                        <td width="70%">
-                            <input type="password" name="yourpass" value="">
-                        </td>
                     </tr>
 
  
@@ -51,8 +47,8 @@ if(  isset($_SESSION['user']) )
         <br>
         <br>
         </font>
-            <input type="submit" name="LOGIN" value="Login" style="font-size:20px; padding:1px 6px;"> 
-        </p>
+        <input type="submit" value="Submit" name="LOGIN" style="font-family: Verdana; font-size: 10pt"></font></p>
+    </p>
     </form> 
 
 </body>

@@ -3,8 +3,8 @@
     include('common.php');    
 
  if(isset($_POST['LOGIN'])){   
-     $name = $_POST['username'];
-     $pass = $_POST['yourpass'];
+     $name = $_POST['user'];
+     $pass = $_POST['pass'];
 
      if($name == "" && $pass == ""){
          echo "Please enter name and pass";

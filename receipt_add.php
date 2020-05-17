@@ -56,8 +56,8 @@ $result2 = mysqli_query($connect,$strSQL2);
 
 <?php if (strpos($name, "rebate") === false || strpos($amount, "-") === false  || $PaymentMode !== "Cash") { ?>
 
-<head>
- 
+  <head>
+<link rel="stylesheet" href="popup.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="popup.js"></script>
 
@@ -68,7 +68,8 @@ $result2 = mysqli_query($connect,$strSQL2);
 
 <body topmargin="0" leftmargin="0">
 
-<?php if (strpos($name, "rebate") !== false && strpos($amount, "-") !== false  && $PaymentMode !== "Cash") { ?>
+<?php if (strpos($name, "rebate") === false && strpos($amount, "-")
+ === false  && $PaymentMode !== "Cash") { ?>
 
 <div class='popup'>
 <div class='cnt223'>
