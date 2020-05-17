@@ -10,9 +10,9 @@
 </head>
 <body>
 
-    <font size="2" face="Verdana" color="#800000">
+   <b> <font size="2" face="Verdana" color="#800000">
         <center><?php echo $_SESSION['project'];  ?></center>
-    </font>
+    </font></b>
     <br>
     <div align="center">
     <font face="Verdana"> 
