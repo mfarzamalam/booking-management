@@ -55,7 +55,7 @@ while ($rs = mysqli_fetch_array($result)){
 ?>
   <tr>
     <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['date'];?></font></td>
-    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['name'];?> *****  <?php $rs['chequeno'];?></font></td>
+    <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['name'];?> *****  <?php echo $rs['chequeno'];?></font></td>
     <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['amount'];?></font></td>
     <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['flatno'];?></font></td>
 		 <td width="20%" style="border:1px dashed black;" align="center"><font size="1" face="Verdana"><?php echo $rs['code'];?></font></td>

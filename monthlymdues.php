@@ -27,10 +27,11 @@
 
 
 <?php  
+ 
 
-$q = "q";
-if ($q !== "") {  ?>
-  <p align="center"><font face="Verdana"><b><font size="5"><?php $q?></font></b><br>
+ 
+if (isset($_GET["q"])) {  ?>
+  <p align="center"><font face="Verdana"><b><font size="5"><?php  echo $_GET["q"]?></font></b><br>
 </font></p>
 <?php } ?>
 
