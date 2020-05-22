@@ -31,13 +31,13 @@ body   { font-family: Arial; font-size: 12pt }
 
 <?php
 
-$query = "SELECT * from `campainvisits` ORDER by ID DESC limit 0,100";
+$query = "SELECT * from `campainvisits` ORDER by ID DESC limit 0,100"; 
 
 $result = mysqli_query($connect,$query);
 
 while($ps = mysqli_fetch_assoc($result)) { 
 
-?>
+?>  
 
 <tr>
 
@@ -49,7 +49,7 @@ $result1 = mysqli_query($connect,$query1);
 
 $qs = mysqli_fetch_assoc($result1);
 
-if (!$ps) { ?>
+if ($ps) { ?>
 
 <?php echo $qs['name'];?>
 
@@ -67,7 +67,7 @@ $ts = mysqli_fetch_assoc($result1);
 
 if (!$ts) { ?>
 
-<%=ts("name")%> | <%=ts("number")%> | <%=ts("konhai")%>
+<?php echo $ts['name'] ?> | <?php echo $ts['number'] ?> | <?php echo $ts['konhai'] ?>
 
 <?php } ?>
 
