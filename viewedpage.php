@@ -65,7 +65,7 @@ $result1 = mysqli_query($connect,$query3);
 
 $ts = mysqli_fetch_assoc($result1);
 
-if (!$ts) { ?>
+if ($ts) { ?>
 
 <?php echo $ts['name'] ?> | <?php echo $ts['number'] ?> | <?php echo $ts['konhai'] ?>
 
