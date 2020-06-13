@@ -47,7 +47,7 @@ header('location:contactlist.php?msg=Must Use Campain ID');
 
 } else {
 
-$attach = " $message "."\n". " http://luckybuilders.com.pk/details- "." $campainid ". " -copy ";
+$attach = " $message "."\n". " http://luckybuilders.com.pk/details-". $campainid . "-copy";
 $strsmsSQLtt="INSERT INTO smshistory (`receiver`,`msg`) VALUES ('923323130544','$attach')";
 $result = mysqli_query($connect,$strsmsSQLtt);
 
@@ -62,11 +62,11 @@ $id = $ps['id'];
 $name = $ps['name'];
 $code = $ps['code'];
 
-$message = "$name + " . "+ $message" ;
+//$message = $name   . "," .  $message ;
 $receiver =str_replace("00923","923",$receiver);
  
 
-$combine = "$name"."\n"."$message"."\n"."http://luckybuilders.com.pk/details-"."$campainid"."-"."$code";
+$combine = $name.",".$message."\n"."http://luckybuilders.com.pk/details-". $campainid. "-". $code;
 
 $strsmsSQL="INSERT INTO smshistory (`receiver`,`msg`) VALUES ('$receiver','$combine')";
 

@@ -78,7 +78,6 @@ if ($ts) { ?>
 </tr>
 	  
 <?php } 
-
 $ps = "Nothing";
 
 ?>
