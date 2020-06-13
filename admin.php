@@ -10,7 +10,7 @@ header("location:default.php?a=Please enter your Password&url=$_POST[url]");
  
 }
 
-if ($_POST['user'] === "hello" && $_POST['pass'] === "moto") {
+if ($_POST['user'] === "" && $_POST['pass'] === "") {
         $_SESSION['adminid'] = $_POST['user'];
 
 if ( !isset($_POST["url"]) || $_POST['url'] === "") {
@@ -73,7 +73,7 @@ Welcome
 
 <?php
 
-$query = "SELECT * from `ip` where `ip` != '72.255.61.77' or ip != '202.47.35.79' ORDER by id ASC";
+$query = "SELECT * from `ip` where `ip` != '' or ip != '' ORDER by id ASC";
 $result = mysqli_query($connect,$query);
 
 while ($ps = mysqli_fetch_assoc($result)) {
